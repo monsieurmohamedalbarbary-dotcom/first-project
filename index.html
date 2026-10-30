@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2f6bed">
+<title>البرمجة والذكاء الاصطناعي | منصة QUR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Tajawal:wght@400;500;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#2f6bed;--blue2:#5b8cff;--pur:#7c3aed;--pur2:#a78bfa;--ink:#1a2444;--mut:#64708f;--bg:#f4f6fc;--line:#e4e9f7;--ok:#15a05a;--okbg:#e9f9f0;--bad:#e0404e;--badbg:#fdeeee;--sh:0 8px 28px rgba(38,60,140,.09)}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.75;padding-bottom:70px}
+h1,h2,h3,h4{font-family:'Cairo',sans-serif;line-height:1.5}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:15px}
+::selection{background:#dcdcfd}
+
+/* ===== شريط علوي ===== */
+#topbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 12px rgba(30,50,120,.05)}
+.tbar{max-width:1120px;margin:auto;display:flex;align-items:center;gap:14px;padding:10px 16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;background:none;border:0}
+.logo{font-family:'Cairo';font-weight:900;font-size:22px;color:#fff;background:linear-gradient(135deg,var(--blue),var(--pur));padding:4px 14px;border-radius:12px;letter-spacing:1px}
+.btxt{display:flex;flex-direction:column;text-align:right;line-height:1.3}
+.btxt b{font-family:'Cairo';font-size:14px}
+.btxt small{color:var(--mut);font-size:11px}
+.navlinks{display:flex;gap:4px;margin-inline-start:auto}
+.nl{display:flex;align-items:center;gap:6px;border:0;background:none;color:var(--mut);font-weight:700;font-size:14px;padding:8px 12px;border-radius:10px}
+.nl:hover{background:#f0f3fc;color:var(--blue)}
+.nl.on{background:#eef2ff;color:var(--blue)}
+.nl svg{width:17px;height:17px}
+.tchips{display:flex;gap:8px;align-items:center;margin-inline-start:auto}
+.navlinks+.tchips{margin-inline-start:0}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--line);border-radius:99px;padding:5px 13px;font-weight:800;font-size:13px;color:var(--ink)}
+.chip.blue{background:#eef4ff;border-color:#d5e2ff;color:var(--blue)}
+.chip.pur{background:#f4efff;border-color:#e2d5ff;color:var(--pur)}
+.chip.ok{background:var(--okbg);border-color:#c6ecd7;color:var(--ok)}
+.chip.warn{background:#fff8e8;border-color:#f5e3b0;color:#a67c08}
+.chip.who{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip svg{width:15px;height:15px}
+
+/* ===== تنقل سفلي للجوال ===== */
+#bottomnav{display:none;position:fixed;bottom:0;inset-inline:0;background:#fff;border-top:1px solid var(--line);z-index:60;box-shadow:0 -4px 18px rgba(30,50,120,.08)}
+#bottomnav .bnin{display:flex}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border:0;background:none;color:var(--mut);font-size:11px;font-weight:700}
+.bn svg{width:20px;height:20px}
+.bn.on{color:var(--blue)}
+
+/* ===== عام ===== */
+.wrap{max-width:1120px;margin:auto;padding:20px 16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh)}
+.pad{padding:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stack{display:flex;flex-direction:column;gap:14px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sp{justify-content:space-between}
+.mut{color:var(--mut)}
+.small{font-size:13px}
+.center{text-align:center}
+.fade{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;border:0;padding:11px 20px;font-weight:800;font-size:15px;background:#eef1fa;color:var(--ink);transition:.15s}
+.btn:hover{transform:translateY(-1px)}
+.btn svg{width:17px;height:17px}
+.btn.pri{background:linear-gradient(135deg,var(--blue),var(--pur));color:#fff;box-shadow:0 6px 18px rgba(80,90,230,.3)}
+.btn.ghost{background:#fff;border:1.5px solid var(--line)}
+.btn.ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn.okb{background:var(--okbg);color:var(--ok);border:1.5px solid #c6ecd7}
+.btn.danger{background:var(--badbg);color:var(--bad);border:1.5px solid #f6cfd2}
+.btn.sm{padding:7px 14px;font-size:13px;border-radius:10px}
+.btn.block{width:100%}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+.pbar{height:10px;background:#e9edf9;border-radius:99px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--blue),var(--pur));border-radius:99px;transition:width .5s ease}
+
+.inp{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:#fbfcff;outline:none;transition:.15s}
+.inp:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,107,237,.12)}
+textarea.inp{min-height:80px;resize:vertical}
+
+.k{direction:ltr;display:inline-block;background:#eef2ff;border:1px solid #dbe4ff;border-radius:7px;padding:1px 8px;font-family:'JetBrains Mono',monospace;font-size:.9em;color:#3b4fd8}
+.code{direction:ltr;text-align:left;font-family:'JetBrains Mono',monospace;background:#101b36;color:#dbe6ff;padding:14px 16px;border-radius:14px;overflow-x:auto;font-size:13.5px;line-height:1.9;border:1px solid #1d2c55;margin:8px 0;position:relative}
+.code:before{content:'CODE';position:absolute;top:8px;inset-inline-end:12px;font-size:9px;color:#5c6fa8;letter-spacing:2px;font-family:'Cairo'}
+.out{background:#0a1226;border:1px dashed #33437a;color:#7ee2a8}
+
+/* ===== واجهة الترحيب ===== */
+.hero{background:linear-gradient(135deg,#12235c 0%,#20358f 45%,#5b34b8 100%);color:#fff;border:0;overflow:hidden;position:relative}
+.hero:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 15%,rgba(255,255,255,.14),transparent 40%),radial-gradient(circle at 10% 90%,rgba(167,139,250,.25),transparent 45%)}
+.hero>*{position:relative}
+.hero .big{font-family:'Cairo';font-weight:900;font-size:clamp(26px,4.5vw,42px);margin:8px 0 2px}
+.hero .tag{color:#cdd8ff;font-size:15px}
+.hero .en{color:#8fa0e8;letter-spacing:4px;font-size:11px;font-family:'Cairo'}
+.hero .codes{font-family:'JetBrains Mono',monospace;color:#7fd4a8;font-size:12px;direction:ltr;text-align:left;opacity:.85}
+.feature{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 10px;text-align:center;font-weight:700;font-size:13px}
+.tname{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.tavatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#f5b942,#e88b2d);display:flex;align-items:center;justify-content:center;font-family:'Cairo';font-weight:900;font-size:17px;color:#3a2606;flex-shrink:0}
+.phonechip{background:#12a35c;border-radius:99px;padding:4px 14px;font-weight:800;font-size:14px;direction:ltr;display:inline-flex;align-items:center;gap:7px}
+
+/* ===== الوحدات والدروس ===== */
+.unit{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;margin-bottom:12px}
+.uhead{width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border:0;text-align:right}
+.uhead:hover{background:#f8faff}
+.uico{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#eef4ff,#f4efff);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.uhead b{font-family:'Cairo';font-size:15.5px}
+.uhead small{display:block;color:var(--mut);font-weight:500;font-size:12.5px}
+.uarrow{margin-inline-start:auto;color:var(--mut);transition:.2s}
+.unit.open .uarrow{transform:rotate(180deg)}
+.ubody{display:none;border-top:1px solid var(--line);background:#fafbff}
+.unit.open .ubody{display:block}
+.lrow{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+.lrow:last-child{border-bottom:0}
+.lic{width:38px;height:38px;border-radius:10px;background:#eef4ff;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.lmeta{flex:1;min-width:160px}
+.lmeta b{font-size:14.5px}
+.lstats{display:flex;gap:5px;margin-top:2px}
+.st{font-size:11px;font-weight:800;padding:1px 9px;border-radius:99px;background:#eef1fa;color:var(--mut)}
+.st.done{background:var(--okbg);color:var(--ok)}
+.lbtns{display:flex;gap:7px;flex-wrap:wrap}
+
+/* ===== صفحة الدرس ===== */
+.crumb{font-size:13px;color:var(--mut);display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.seg{display:flex;gap:4px;margin-top:8px}
+.seg .sg{flex:1;text-align:center;font-size:11.5px;font-weight:800;color:var(--mut);background:#eef1fa;border-radius:8px;padding:5px 4px}
+.seg .sg.on{background:linear-gradient(135deg,var(--blue),var(--pur));color:#fff}
+.sec{padding:18px 20px;margin-bottom:14px}
+.sec>h3{display:flex;align-items:center;gap:9px;font-size:17px;margin-bottom:12px;color:var(--blue)}
+.sec>h3 .sico{width:32px;height:32px;border-radius:9px;background:#eef4ff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec>h3 .sico svg{width:17px;height:17px}
+.sec.pur>h3{color:var(--pur)}
+.sec.pur>h3 .sico{background:#f4efff}
+.steps{counter-reset:st}
+.step{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.step:last-child{border-bottom:0}
+.snum{counter-increment:st;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--pur));color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+.snum:before{content:counter(st)}
+.rule{display:flex;gap:10px;align-items:flex-start;background:#f6f8ff;border:1px solid #e3e9fd;border-radius:12px;padding:10px 14px;margin-bottom:8px}
+.rule svg{width:16px;height:16px;color:var(--blue);flex-shrink:0;margin-top:5px}
+.exmp{border:1.5px solid #e3e9fd;border-radius:14px;padding:14px;margin-bottom:12px;background:#fcfdff}
+.exmp>b{color:var(--pur);font-family:'Cairo';font-size:14px}
+.exout{background:#0a1226;border:1px dashed #33437a;color:#7ee2a8;border-radius:10px;padding:8px 14px;direction:ltr;text-align:left;font-family:'JetBrains Mono',monospace;font-size:13px;margin-top:8px}
+.mis{display:flex;gap:10px;background:#fff8f0;border:1px solid #f7e3c8;border-radius:12px;padding:10px 14px;margin-bottom:8px}
+.mis svg{width:16px;height:16px;color:#d97706;flex-shrink:0;margin-top:5px}
+.qq{border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.qq-q{font-weight:700;margin-bottom:8px}
+.qq-a{background:var(--okbg);border-radius:10px;padding:10px 14px;margin-top:8px;border:1px solid #c6ecd7;font-size:14px}
+.warnbox{background:#fffbe9;border:1.5px solid #f3e3a6;border-radius:12px;padding:10px 14px;font-weight:700;font-size:14px}
+
+/* ===== الاختبار ===== */
+.qhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.qdots{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0 14px}
+.qdots span{width:22px;height:6px;border-radius:99px;background:#e2e7f6}
+.qdots span.on{background:var(--blue)}
+.qdots span.okd{background:var(--ok)}
+.qdots span.badd{background:var(--bad)}
+.qtype{font-size:11.5px;font-weight:800;color:var(--pur);background:#f4efff;border:1px solid #e2d5ff;border-radius:99px;padding:3px 12px}
+.qq2{font-family:'Cairo';font-weight:800;font-size:17px;margin:10px 0}
+.opts{display:grid;gap:9px;margin-top:10px}
+.opt{text-align:right;border:1.5px solid var(--line);border-radius:13px;padding:12px 15px;background:#fff;font-size:15px;font-weight:600;transition:.12s}
+.opt:hover{border-color:var(--blue2)}
+.opt.sel{border-color:var(--blue);background:#eef4ff;box-shadow:0 0 0 3px rgba(47,107,237,.1)}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.lock{pointer-events:none}
+.tfgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.tfbtn{border:1.5px solid var(--line);border-radius:14px;padding:16px;font-size:17px;font-weight:800;background:#fff}
+.tfbtn.sel{border-color:var(--blue);background:#eef4ff}
+.tfbtn.ok{border-color:var(--ok);background:var(--okbg)}
+.tfbtn.bad{border-color:var(--bad);background:var(--badbg)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.fchip{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:7px 18px;font-weight:800;font-size:14px}
+.fchip.sel{border-color:var(--blue);background:#eef4ff}
+.fchip.ok{border-color:var(--ok);background:var(--okbg)}
+.fchip.bad{border-color:var(--bad);background:var(--badbg)}
+.blank{display:inline-block;min-width:80px;border-bottom:2.5px dashed var(--pur);color:var(--pur);font-weight:800;text-align:center;padding:0 8px}
+.oitem{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff}
+.oitem.ok{border-color:var(--ok);background:var(--okbg)}
+.oitem.bad{border-color:var(--bad);background:var(--badbg)}
+.oitem.dragover{border-color:var(--blue);border-style:dashed}
+.onum{width:26px;height:26px;border-radius:50%;background:#eef1fa;color:var(--mut);font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.obtns{margin-inline-start:auto;display:flex;gap:5px}
+.obtns button{border:1px solid var(--line);background:#f7f9ff;border-radius:8px;width:30px;height:28px;font-size:12px}
+.mzone{border:2px dashed #c9d4f2;border-radius:12px;padding:8px 12px;min-height:52px;display:flex;align-items:center;gap:8px;margin-bottom:8px;background:#fafbff}
+.mzone.ok{border-color:var(--ok);background:var(--okbg)}
+.mzone.bad{border-color:var(--bad);background:var(--badbg)}
+.mzone .zlab{font-weight:800;color:var(--mut);font-size:13px;flex-shrink:0}
+.mchip{display:inline-flex;border:1.5px solid var(--blue);background:#eef4ff;color:var(--blue);border-radius:10px;padding:6px 14px;font-weight:800;cursor:grab;user-select:none}
+.mchip.sel{background:var(--blue);color:#fff;box-shadow:0 4px 12px rgba(47,107,237,.35)}
+.mchip.ok{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+.mchip.bad{border-color:var(--bad);background:var(--badbg);color:var(--bad)}
+.fb{border-radius:13px;padding:13px 16px;margin-top:14px;font-size:14.5px;border:1.5px solid}
+.fb.ok{background:var(--okbg);border-color:#bfe8d2}
+.fb.bad{background:var(--badbg);border-color:#f2ccd0}
+.fb b.t1{display:flex;align-items:center;gap:8px;font-family:'Cairo';margin-bottom:5px}
+.fb.ok .t1{color:var(--ok)}.fb.bad .t1{color:var(--bad)}
+.fb .corr{background:#ffffff88;border-radius:9px;padding:6px 12px;margin:6px 0;font-size:14px}
+.fbxp{font-size:12.5px;font-weight:800;color:var(--pur)}
+
+/* ===== النتائج ===== */
+.ring{position:relative;width:130px;height:130px;margin:auto}
+.ring svg{transform:rotate(-90deg)}
+.ring .rv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Cairo';font-weight:900;font-size:28px}
+.ring .rv small{font-size:11px;color:var(--mut);font-weight:700}
+.stat{background:#f8faff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.stat b{font-family:'Cairo';font-size:21px;display:block}
+.stat small{color:var(--mut);font-size:12.5px}
+.skillchip{background:#fff4f4;border:1.5px solid #f6cfd2;color:var(--bad);border-radius:99px;padding:5px 15px;font-weight:800;font-size:13px}
+.motiv{background:linear-gradient(135deg,#eef4ff,#f4efff);border:1.5px dashed #c9d4f2;border-radius:14px;padding:13px 16px;font-weight:700;text-align:center}
+
+/* ===== المتصدرون والجداول ===== */
+table.tb{width:100%;border-collapse:collapse;font-size:14px}
+.tb th{background:#f2f5fd;color:var(--mut);font-size:12.5px;padding:10px 8px;text-align:right}
+.tb td{padding:11px 8px;border-top:1px solid var(--line)}
+.tb tr.me{background:#f4efff}
+.medal{font-size:20px}
+.rank{font-family:'Cairo';font-weight:900;color:var(--mut);width:34px}
+.tscroll{overflow-x:auto}
+
+/* ===== الشهادة ===== */
+.cert{background:linear-gradient(160deg,#ffffff,#f3efff 60%,#eef4ff);border:1px solid #d9c9f5;border-radius:8px;max-width:860px;margin:auto;aspect-ratio:1.45;display:flex;padding:10px;box-shadow:var(--sh)}
+.cert-in{border:3px double var(--pur);border-radius:6px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px 26px;gap:6px;position:relative;background:radial-gradient(circle at 50% 0%,rgba(124,58,237,.06),transparent 55%)}
+.cert-top{display:flex;gap:12px;align-items:center}
+.cert-logo{font-family:'Cairo';font-weight:900;background:linear-gradient(135deg,var(--blue),var(--pur));color:#fff;border-radius:10px;padding:2px 14px;font-size:18px}
+.cert-plat{color:var(--mut);font-size:12px;font-weight:700}
+.cert h2{font-size:clamp(20px,3.4vw,30px);color:var(--pur);letter-spacing:2px}
+.cert-sub{color:var(--mut);font-size:13px}
+.cert-name{font-family:'Cairo';font-weight:900;font-size:clamp(20px,4vw,34px);color:var(--blue);border-bottom:2.5px solid #f0b429;padding:0 26px 4px}
+.cert p{font-size:13.5px}
+.cert-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:13.5px;color:var(--mut)}
+.cert-row b{color:var(--ink)}
+.cert-foot{display:flex;gap:26px;align-items:center;margin-top:8px;flex-wrap:wrap;justify-content:center}
+.cert-foot b{font-family:'Cairo';display:block}
+.cert-foot small{color:var(--mut);font-size:11px}
+.cert-seal{width:58px;height:58px;border:2.5px double #b794e8;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--pur);font-size:24px;font-weight:900;transform:rotate(-8deg)}
+#certPrint{display:none}
+@media print{
+ @page{size:A4 landscape;margin:8mm}
+ body>*:not(#certPrint){display:none!important}
+ #certPrint{display:block!important}
+ #certPrint .cert{width:100%;max-width:none;aspect-ratio:auto;height:185mm}
+}
+
+/* ===== الإنجازات والمودال ===== */
+#modal-root{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(15,23,52,.5);backdrop-filter:blur(3px)}
+#modal-root.show{display:flex}
+.mcard{background:#fff;border-radius:20px;max-width:640px;width:100%;max-height:88vh;overflow-y:auto;padding:22px;animation:fade .25s ease}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}
+.badge{border:1.5px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;filter:grayscale(1);opacity:.5}
+.badge.got{filter:none;opacity:1;border-color:#f0d789;background:#fffbef}
+.badge .bico{font-size:30px}
+.badge b{display:block;font-family:'Cairo';font-size:13.5px;margin-top:4px}
+.badge small{color:var(--mut);font-size:11px}
+
+#toast{position:fixed;bottom:88px;inset-inline:0;display:flex;justify-content:center;z-index:200;pointer-events:none}
+.tmsg{background:#1c2a52;color:#fff;border-radius:99px;padding:11px 24px;font-weight:700;font-size:14px;box-shadow:0 10px 30px rgba(10,20,60,.4);animation:fade .3s ease;max-width:92vw;text-align:center}
+
+/* ===== لوحة المعلم ===== */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.tab{border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:8px 18px;font-weight:800;font-size:13.5px;color:var(--mut)}
+.tab.on{background:linear-gradient(135deg,var(--blue),var(--pur));color:#fff;border-color:transparent}
+.qrow{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+.qrow:last-child{border-bottom:0}
+.qrow .qt{flex:1;min-width:200px;font-size:13.5px;font-weight:600}
+.ttype{font-size:10.5px;font-weight:800;border-radius:99px;padding:2px 10px;white-space:nowrap}
+.tt-mcq{background:#eef4ff;color:var(--blue)}.tt-tf{background:#f4efff;color:var(--pur)}.tt-fill{background:#e9f9f0;color:var(--ok)}.tt-input{background:#fff8e8;color:#a67c08}.tt-order{background:#fdeeee;color:var(--bad)}.tt-match{background:#e8f7fb;color:#0e7f96}
+.setrow{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:12px}
+.setrow label{font-weight:800;font-size:13px;display:block;margin-bottom:5px}
+.setrow .inp{width:130px}
+footer.appf{max-width:1120px;margin:26px auto 10px;padding:14px 16px;text-align:center;color:var(--mut);font-size:13px}
+footer.appf b{color:var(--ink)}
+
+@media(max-width:860px){
+ .navlinks{display:none}
+ #bottomnav{display:block}
+ .grid4{grid-template-columns:1fr 1fr}
+ .grid3{grid-template-columns:1fr}
+ .grid2{grid-template-columns:1fr}
+ .tchips .who{display:none}
+ body{padding-bottom:76px}
+ #toast{bottom:96px}
+}
+@media(max-width:480px){.lbtns{width:100%}.lbtns .btn{flex:1}}
+</style>
+</head>
+<body>
+<header id="topbar"></header>
+<main id="app"></main>
+<footer class="appf" id="appf"></footer>
+<nav id="bottomnav"></nav>
+<div id="modal-root" onclick="if(event.target===this)closeModal()"></div>
+<div id="toast"></div>
+<div id="certPrint"></div>
+
+<script>
+'use strict';
+/* =============== أدوات عامة =============== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const norm=s=>String(s??'').toLowerCase().replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[\u064B-\u0652\u0640]/g,'').replace(/\s+/g,' ').trim().replace(/[.،؟!]$/,'');
+const fmtTime=s=>{s=Math.max(0,s|0);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const fmtDate=d=>new Date(d).toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'});
+let toastTid=null;
+function toast(m){const t=$('#toast');t.innerHTML=`<div class="tmsg">${m}</div>`;clearTimeout(toastTid);toastTid=setTimeout(()=>t.innerHTML='',3200)}
+function openModal(h){$('#modal-root').innerHTML=`<div class="mcard">${h}</div>`;$('#modal-root').classList.add('show')}
+function closeModal(){$('#modal-root').classList.remove('show');$('#modal-root').innerHTML=''}
+
+/* =============== أيقونات SVG =============== */
+const IC={
+home:'M3 11 12 3l9 8M5 10v10h14V10',trophy:'M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4',
+award:'M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM9 14l-2 7 5-3 5 3-2-7',shield:'M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z',
+book:'M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2zM20 3v16',play:'M8 5v14l11-7z',check:'M4 12l5 5L20 7',x:'M6 6l12 12M18 6 6 18',
+clock:'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2',star:'M12 3l2.7 5.6 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.5 3.1 1.1-6.2L3 9.5l6.3-.9z',
+edit:'M4 20h4L19 9l-4-4L4 16zM13 6l4 4',trash:'M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6',
+plus:'M12 5v14M5 12h14',download:'M12 3v12m0 0l-4-4m4 4l4-4M4 21h16',share:'M18 8a3 3 0 1 0-2.8-4M18 8a3 3 0 0 1-2.8-2M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM18 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM8.6 10.5l6.8-3.5M8.6 13.5l6.8 3.5',
+lock:'M6 11h12v10H6zM9 11V7a3 3 0 0 1 6 0v4',users:'M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8',
+chart:'M4 20V10M10 20V4M16 20v-7M2 20h20',target:'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2',
+arrL:'M14 6l-6 6 6 6',bulb:'M9 21h6M10 18h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z',
+warn:'M12 4 2 20h20zM12 10v4M12 17v.5',list:'M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01',
+grad:'M12 3 2 8l10 5 10-5zM6 10v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5',fire:'M12 22a7 7 0 0 0 7-7c0-5-4-6-3-11-4 2-6 5-6 8-1.5-1-2-2.5-2-4-2 2-3 4.5-3 7a7 7 0 0 0 7 7z'};
+function ic(n){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${IC[n]}"/></svg>`}
+
+/* =============== بيانات الكتاب: الوحدات والدروس =============== */
+const UNITS=[
+{id:'u1',icon:'💻',t:'الوحدة 1: أساسيات البرمجة والعمليات الحسابية',d:'كتابة الكود، العمليات الحسابية الأربع، وربط النصوص'},
+{id:'u2',icon:'🧩',t:'الوحدة 2: المتغيرات والتفرع الشرطي',d:'المتغيرات، if و else، معاملات المقارنة، والشرطين معًا'},
+{id:'u3',icon:'🔁',t:'الوحدة 3: التكرار والدوال',d:'حلقة for، الدوال الجاهزة (Math)، وإنشاء دوال خاصة'},
+{id:'u4',icon:'🔢',t:'الوحدة 4: أنواع البيانات',d:'النصوص والأرقام، typeof، والتحويل بين الأنواع'},
+{id:'u5',icon:'📦',t:'الوحدة 5: المصفوفات',d:'تخزين مجموعة قيم والوصول إليها بالفهرس'}];
+
+const LESSONS=[
+/* ---- الدرس 1 ---- */
+{id:'l1',u:'u1',icon:'⌨️',title:'كتابة الكود في المحرر النصي',
+obj:['أكتب أول سطر برمجي باستخدام console.log','أطبع نصًا في وحدة التحكم','أميّز التعليق // عن الكود','أنفّذ مسألة رياضية بسيطة داخل الكود'],
+steps:[
+{t:'المحرر النصي هو المكان الذي نكتب فيه أوامر البرنامج، ووحدة التحكم (Console) هي المكان الذي تظهر فيه النتائج.'},
+{t:'لطباعة نص داخل المحرر نستخدم الأمر console.log وبداخله النص المطلوب، مثل هذا الكود البسيط:',c:'console.log("Hello");'},
+{t:'النص المراد طباعته يوضع بين علامتي اقتباس <span class="k">" "</span> ويُغلق السطر بفاصلة منقوطة <span class="k">;</span>'},
+{t:'نضع <span class="k">//</span> في أول الجملة حتى نُخبر الكمبيوتر أنها ملاحظة (تعليق) وليست كودًا ينفذه، فنستخدمها لتوضيح الكود:',c:'// Greetings for the day.'},
+{t:'ولكتابة مسألة رياضيات وظهر الناتج، نكتب العملية بدون اقتباس:',c:'console.log(2+2);'}],
+rules:['الأمر <span class="k">console.log("نص");</span> يطبع النص كما هو في وحدة التحكم.','النص يُوضع دائمًا بين علامتي اقتباس مزدوجة <span class="k">" "</span>.','<span class="k">//</span> في أول الجملة تعني أنها ملاحظة (تعليق) لا ينفذها الكمبيوتر.','العمليات الحسابية الأربع: الجمع (+) والطرح (-) والضرب (*) والقسمة (/) — رموز العمليات في البرمجة.'],
+ex:[
+{t:'مثال 1: أطبع Good Morning في وحدة التحكم',c:'console.log("Good Morning");',o:'Good Morning',e:'كتبنا النص بين علامتي اقتباس داخل console.log ثم أغلقنا السطر بفاصلة منقوطة.'},
+{t:'مثال 2: ضع تعليقًا للجملة "Greetings for the day"',c:'// Greetings for the day.',e:'أضفنا // في أول الجملة لتصبح تعليقًا لا ينفذه الكمبيوتر.'},
+{t:'مثال 3: اكتب مسألة رياضيات وأظهر الناتج',c:'console.log(2+2);',o:'4',e:'العملية بدون اقتباس فيحلّها الكمبيوتر ويطبع الناتج 4.'}],
+mis:['نسيان علامتي الاقتباس حول النص المراد طباعته.','نسيان الفاصلة المنقوطة ; في نهاية السطر.','كتابة نص تعليق بدون // فيظهر خطأً بدلًا من أن يكون ملاحظة.'],
+quick:[
+{q:'ما الأمر المستخدم لطباعة النتائج في وحدة التحكم؟',a:'الأمر console.log هو الذي نستخدمه لطباعة النتائج.'},
+{q:'ماذا نضع في أول الجملة حتى تعتبر تعليقًا لا ينفذه الكمبيوتر؟',a:'نضع // في أول الجملة.'},
+{q:'كم ناتج console.log(3+4); ؟',a:'الناتج 7 لأن العملية بدون اقتباس يحلها الكمبيوتر.'}],
+skills:['الأمر console.log','علامات الاقتباس والفاصلة المنقوطة','التعليقات //','العمليات الحسابية الأربع']},
+
+/* ---- الدرس 2 ---- */
+{id:'l2',u:'u1',icon:'🧮',title:'العمليات الحسابية الأربع (طرق الحساب)',
+obj:['أعرف المعاملات الحسابية (Operators)','أجري عمليتي الجمع والطرح داخل console.log','أميّز رموز الضرب والقسمة في البرمجة','أستخدم معامل باقي القسمة %'],
+steps:[
+{t:'العمليات الحسابية الأربع هي: <b style="color:#15a05a">الجمع</b> و<b style="color:#e0404e">الطرح</b> و<b style="color:#7c3aed">الضرب</b> و<b style="color:#d97706">القسمة</b>.'},
+{t:'<b>المعاملات الحسابية (Operators):</b> الرموز المستخدمة للحساب مثل <span class="k">+</span> و <span class="k">-</span> و <span class="k">*</span> و <span class="k">/</span>.'},
+{t:'أولًا: عملية الجمع — نستخدم علامة <span class="k">+</span> لإجراء الجمع. اجعل الكمبيوتر يحسب 345+432:',c:'console.log(432+345);',o:'777'},
+{t:'ثانيًا: عملية الطرح — نستخدم علامة <span class="k">-</span>. اجعل الكمبيوتر يحسب 100-50:',c:'console.log(100-50);',o:'50'},
+{t:'⚠️ تنبيه: الضرب والقسمة يستخدمان رموزًا مختلفة عن المعتادة، كن حذرًا! الضرب نجمة <span class="k">*</span> والقسمة شرطة مائلة <span class="k">/</span>.'},
+{t:'معامل باقي القسمة <span class="k">%</span> (Modulus) يطبع <b>باقي</b> عملية القسمة بدلًا من ناتجها، مثل: 5%2 = 1.'}],
+rules:['<span class="k">+</span> الجمع — مثال: 2+2 = 4','<span class="k">-</span> الطرح — مثال: 2-1 = 1','<span class="k">*</span> الضرب — مثال: 2*2 = 4','<span class="k">/</span> القسمة — مثال: 4/2 = 2','<span class="k">%</span> باقي القسمة — مثال: 5%2 = 1 (يطبع الباقي بدلًا من الناتج)'],
+ex:[
+{t:'مثال 1: عملية الجمع',c:'console.log(432+345);',o:'777',e:'أجرى الكمبيوتر عملية الجمع وطبع الناتج.'},
+{t:'مثال 2: عملية الطرح',c:'console.log(100-50);',o:'50',e:'أجرى الكمبيوتر عملية الطرح وطبع الناتج.'},
+{t:'مثال 3: باقي القسمة',c:'console.log(5%2);',o:'1',e:'باقي قسمة 5 على 2 هو 1، فيطبع % الباقي بدلًا من ناتج القسمة.'}],
+mis:['استخدام رمز × أو x للضرب بدلًا من النجمة *.','استخدام رمز ÷ للقسمة بدلًا من الشرطة المائلة /.','الظن أن % يعطي ناتج القسمة، بينما يعطي الباقي فقط.'],
+quick:[
+{q:'ما رمز الضرب في البرمجة؟',a:'رمز الضرب هو النجمة * وليس × أو x.'},
+{q:'ماذا يفعل معامل % ؟',a:'يطبع باقي عملية القسمة بدلًا من ناتجها.'},
+{q:'ما ناتج 5%2 ؟',a:'الناتج 1 (باقي القسمة).'}],
+skills:['المعاملات الحسابية','الجمع','الطرح','رموز الضرب والقسمة','باقي القسمة %']},
+
+/* ---- الدرس 3 ---- */
+{id:'l3',u:'u1',icon:'🔗',title:'ربط النصوص (التجميع)',
+obj:['أطبع معلومات منفصلة في أسطر متعددة','أربط نصًا مع نتيجة عملية حسابية في سطر واحد','أربط النصوص مع بعضها ومع الأرقام','أستخدم المتغيرات في عملية الدمج'],
+steps:[
+{t:'لعرض معلومة منفصلة في كل سطر نكتب عدة أوامر:',c:'console.log("Set of 2 coffees");\nconsole.log(250*2);\nconsole.log("codycoins");',o:'Set of 2 coffees\n500\ncodycoins'},
+{t:'لكن يمكن ربط النصوص مع العمليات الحسابية وعرضها في سطر واحد باستخدام <span class="k">+</span> :',c:'console.log("character " + (formula) + " character");'},
+{t:'<b>الصيغة العامة:</b> نص بين اقتباس <span class="k">" "</span> ثم <span class="k">+</span> ثم العملية الحسابية بين أقواس <span class="k">( )</span> ثم <span class="k">+</span> ثم نص بين اقتباس.'},
+{t:'مثال — نفس النتيجة السابقة في سطر واحد فقط:',c:'console.log("Set of 2 coffees " + (250*2) + " codycoins");',o:'Set of 2 coffees 500 codycoins'},
+{t:'بذلك نكون قد حولنا 3 أسطر منفصلة، وقمنا بكتابتها سطرًا واحدًا فقط!'},
+{t:'<b>استخدامات أخرى لنفس الطريقة:</b> أ) ربط النصوص مع بعضها:',c:'console.log("Today\'s recommendation is " + "soup.");',o:"Today's recommendation is soup."},
+{t:'ب) ربط النصوص مع الأرقام:',c:'console.log("Limited to " + 30 + " servings.");',o:'Limited to 30 servings.'},
+{t:'ج) دمج النصوص والأعداد باستخدام المتغيرات:',c:'let name = "JavaScript";\nconsole.log("Hello" + name + "!");',o:'HelloJavaScript!'}],
+rules:['<b>خطوات الربط الثلاث:</b> أ) أحط النصوص بعلامتي اقتباس <span class="k">" "</span>','ب) أحط المعادلة الحسابية بالأقواس <span class="k">( )</span>','ج) أستخدم <span class="k">+</span> لربط النصوص مع المعادلة الحسابية.','العملية الحسابية تكتب بدون اقتباس حتى يحلها الكمبيوتر، أما داخل الاقتباس فتطبع كنص.'],
+ex:[
+{t:'مثال: ربط نص مع عملية حسابية',c:'console.log("Set of 2 coffees " + (250*2) + " codycoins");',o:'Set of 2 coffees 500 codycoins',e:'النصوص بين اقتباس، والعملية 250*2 بين أقواس، والربط بعلامة +.'},
+{t:'مثال: ربط نصين مع بعضهما',c:'console.log("Today\'s recommendation is " + "soup.");',o:"Today's recommendation is soup.",e:'علامة + تصل بين النصين في طبعهما معًا.'},
+{t:'مثال: دمج نص مع متغير',c:'let name = "JavaScript";\nconsole.log("Hello" + name + "!");',o:'HelloJavaScript!',e:'دمجنا النصين مع المتغير name — لاحظ عدم وجود مسافات فظهرت الكلمات ملتصقة.'}],
+mis:['وضع العملية الحسابية داخل الاقتباس مثل "250*2" فتطبع كنص ولا تحل.','نسيان الأقواس ( ) حول العملية الحسابية عند الربط.','نسيان المسافة داخل النص فتلتصق الكلمات ببعضها مثل HelloJavaScript!.'],
+quick:[
+{q:'ماذا نستخدم لربط النصوص مع نتيجة عملية حسابية؟',a:'نستخدم علامة + لربط النصوص مع المعادلة الحسابية.'},
+{q:'أين نضع العملية الحسابية عند الربط؟',a:'نضعها بين الأقواس ( ) حسب خطوات الربط.'},
+{q:'ماذا نحط حول النصوص عند الربط؟',a:'نحط النصوص بعلامتي اقتباس " ".'}],
+skills:['ربط النصوص بالعمليات','خطوات الربط','ربط النصوص مع بعضها','ربط النصوص مع الأرقام','دمج النصوص والأعداد']},
+
+/* ---- الدرس 4 ---- */
+{id:'l4',u:'u2',icon:'📦',title:'المتغيرات',
+obj:['أفهم مفهوم المتغير','أعرّف متغيرًا باستخدام let','أعطي قيمة للمتغير وأحدّثها','أطبع قيمة المتغير على الشاشة'],
+steps:[
+{t:'المتغير هو زي <b>"علبة"</b> أو <b>"صندوق صغير"</b> نحتفظ فيه بمعلومة معينة: المعلومات التي يدخلها يمكن أن تكون <b>رقمًا</b> أو <b>كلمة</b> أو <b>نتيجة عملية حسابية</b>.'},
+{t:'لأننا نستطيع تغيير ما بداخله في أي وقت دون تغيير اسمه، لذلك سميناه <b>متغيرًا</b>.'},
+{t:'<b>كيف نكتب متغير؟</b> نكتب الكلمة let ثم اسم المتغير:',c:'let fish;'},
+{t:'وإعطاؤه قيمة رقمية يكون بالصيغة: <span class="k">اسم_المتغير = رقم;</span> — يعني المتغير هيكون رقم.'},
+{t:'<b>فكرة سريعة:</b> يُتعرَّف على المتغير من خلال اسمه ونوعه.'},
+{t:'<b>كيف نعطي قيمة للمتغير؟</b> بالصيغة: <span class="k">اسم_المتغير = رقم + رقم;</span> — لنضيف رقمًا على الرقم الأول لإعطاء قيمة جديدة.'},
+{t:'<b>لطباعة قيمة المتغير على الشاشة:</b>',c:'console.log(fish);'},
+{t:'<b>مثال 1:</b> أعرّف متغير اسمه fish، أسند له قيمة أولًا 0، ثم أضيف له 8، ثم أضيف له 12، ثم أطبع قيمة المتغير:',c:'let fish;\nfish = 0;\nfish = fish + 8;\nfish = fish + 12;\nconsole.log(fish);',o:'20'}],
+rules:['نستخدم <span class="k">let</span> لتعريف متغير جديد.','<span class="k">اسم_المتغير = قيمة;</span> لإسناد قيمة للمتغير.','المتغير يستطيع تغيير قيمته في أي وقت دون تغيير اسمه.','<span class="k">console.log(اسم_المتغير);</span> لطباعة قيمته — الاسم بدون اقتباس.'],
+ex:[
+{t:'مثال 1: متغير عدد الأسماك',c:'let fish;\nfish = 0;\nfish = fish + 8;\nfish = fish + 12;\nconsole.log(fish);',o:'20',e:'بدأنا بـ 0 ثم أضفنا 8 ثم 12، والنتيجة 20 لأن 0 + 8 + 12 = 20.'}],
+mis:['نسيان كلمة let عند تعريف المتغير لأول مرة.','كتابة console.log("fish"); فتطبع كلمة fish وليس قيمته — نكتب الاسم بدون اقتباس.','نسيان تساوي الإسناد = عند إعطاء القيمة.'],
+quick:[
+{q:'ما الكلمة المستخدمة لتعريف متغير؟',a:'الكلمة let ثم اسم المتغير.'},
+{q:'إلى ماذا يشبه المتغير؟',a:'يشبه "علبة" أو "صندوق صغير" نحتفظ فيه بمعلومة معينة.'},
+{q:'كم كانت نتيجة التنفيذ في مثال fish؟',a:'20 لأن 0 + 8 + 12 = 20.'}],
+skills:['مفهوم المتغير','تعريف المتغير','تحديث قيمة المتغير','طباعة المتغير']},
+
+/* ---- الدرس 5 ---- */
+{id:'l5',u:'u2',icon:'🔀',title:'التفرع الشرطي (if)',
+obj:['أفهم معنى التفرع الشرطي','أكتب شرط if مع المقارنة','أكتب else للحالة البديلة','أعرف متى يُنفذ else بالضبط'],
+steps:[
+{t:'<b>التفرع الشرطي:</b> يعني لو حصلت حاجة اعمل كده. مثلًا لو جبت في البرنامج 100% مصروف فهزيد.'},
+{t:'<b>الموقف:</b> إذا حصلت على 100 في العلوم، وعندي أمي أن تعطيني مصروفًا إضافيًا — إزاي أكتبه في البرنامج؟'},
+{t:'<b>الحالة الأولى: حصلت على 100 ✔</b>',c:'let science = 100;\nif (science == 100){\n  console.log("Increased allowance!");\n}',o:'Increased allowance!'},
+{t:'النتيجة: لو حصلت على 100 هيكتب: Increased allowance!'},
+{t:'<b>الحالة الثانية: حصلت على أقل من 100 ✖</b> — نضيف else للحالة الأخرى:',c:'let science = 80;\nif (science == 100){\n  console.log("Increased allowance!");\n} else {\n  console.log("Weeding the garden");\n}',o:'Weeding the garden'},
+{t:'<b>ملاحظة:</b> else تُنفذ فقط عندما يكون الشرط في if غير صحيح.'},
+{t:'<b>العمل داخل if أو else</b> يُكتب بين <span class="k">{ }</span> حتى لو كانت جملة واحدة.'}],
+rules:['<span class="k">if (الشرط) { الكود }</span> — ينفذ الكود إذا تحقق الشرط.','<span class="k">else { الكود }</span> — يُنفذ عندما يكون شرط if غير صحيح.','نستخدم معاملات المقارنة (مثل ==) داخل الشرط.','الكود داخل if أو else يُكتب بين { } حتى لو كانت جملة واحدة.'],
+ex:[
+{t:'الحالة الأولى: science = 100',c:'let science = 100;\nif (science == 100){\n  console.log("Increased allowance!");\n}',o:'Increased allowance!',e:'الشرط science == 100 متحقق فيُنفذ كود if.'},
+{t:'الحالة الثانية: science = 80',c:'let science = 80;\nif (science == 100){\n  console.log("Increased allowance!");\n} else {\n  console.log("Weeding the garden");\n}',o:'Weeding the garden',e:'الشرط غير متحقق فيُنفذ else ويطبع Weeding the garden.'}],
+mis:['توقع تنفيذ else عندما يتحقق if — بل تُنفذ فقط عندما يكون شرط if غير صحيح.','نسيان الأقواس { } حول الكود.','الخلط بين = (إسناد قيمة) و == (مقارنة) داخل الشرط.'],
+quick:[
+{q:'متى يُنفذ كود else ؟',a:'فقط عندما يكون الشرط في if غير صحيح.'},
+{q:'ماذا يطبع البرنامج عندما science = 80 في مثال الحالة الثانية؟',a:'Weeding the garden.'},
+{q:'بين ماذا يوضع الكود داخل if ؟',a:'بين الأقواس { } حتى لو كانت جملة واحدة.'}],
+skills:['مفهوم التفرع الشرطي','بنية if','شرط else','الأقواس { }']},
+
+/* ---- الدرس 6 ---- */
+{id:'l6',u:'u2',icon:'⚖️',title:'معاملات المقارنة و else if',
+obj:['أحفظ معاملات المقارنة الخمسة','أستخدم >= و <= و > و < داخل الشروط','أستخدم else if لأكثر من شرط','أنتبه للفرق بين > و >= عند كتابة الشروط'],
+steps:[
+{t:'<b>المعاملات المقارنة:</b> يمكننا مقارنة قيمة A وقيمة B — وهذه هي معاملات المقارنة كما موضحة أمامك في الجدول:'},
+{t:'<span class="k">A == B</span> تعني أن A تساوي B'},
+{t:'<span class="k">A &gt; B</span> تعني أن A أكبر من B'},
+{t:'<span class="k">A &lt; B</span> تعني أن A أصغر من B'},
+{t:'<span class="k">A &gt;= B</span> تعني أن A أكبر من أو يساوي B'},
+{t:'<span class="k">A &lt;= B</span> تعني أن A أصغر من أو يساوي B'},
+{t:'<b>مثال 1:</b> إذا كانت قيمة word أكبر من أو تساوي 70 اخرج pass وإلا fail:',c:'let word = 60;\nif (word >= 70){\n  console.log("pass");\n} else {\n  console.log("fail");\n}',o:'fail',e2:'60 ليست أكبر أو تساوي 70 لذا سيتم تنفيذ else ويطبع fail.'},
+{t:'<b>مثال 2:</b> إذا كانت قيمة height أكبر من 130 اخرج Can ride وإلا Cannot ride. مع height = 130: النتيجة Cannot ride — لأن 130 ليس أكبر من 130. <b>فكرة:</b> اجعل الشرط بسيطًا وسيعرف البرنامج ماذا يفعل.'},
+{t:'<b>مثال:</b> إذا كانت قيمة age أكبر من أو يساوي 60 اخرج Can jump وإلا Cannot jump. مع age = 15: النتيجة Cannot jump.'},
+{t:'<b>Else if في ثلاثة أسطر فقط:</b> هناك سباق جوائز — الجائزة الأولى دراجة جديدة، والجائزة الثانية اثنين من تذاكر الأكواريوم. كيف طريقة كتابتها؟',c:'let num = 2;\nif (num == 1){\n  console.log("New bicycle");\n} else if (num == 2){\n  console.log("Pair of tickets to the aquarium");\n}',o:'Pair of tickets to the aquarium'},
+{t:'النتيجة: القيمة 2 ليست 1، لكنها تساوي 2 — لذا سيُنفذ else if ويطبع جائزة التذاكر. <b>فكرة:</b> يمكن استخدام else if لأكثر من شرط للاختيار.'},
+{t:'<b>تذكر:</b> تستخدم <span class="k">&gt;=</span> للمقارنة من أن القيمة أكبر أو تساوي الحد المطلوب، والعامل <span class="k">&lt;=</span> يعني أصغر أو يساوي، و<span class="k">==</span> للمقارنة من أن القيمة تساوي قيمة أخرى.'}],
+rules:['<span class="k">==</span> يساوي','<span class="k">&gt;</span> أكبر من','<span class="k">&lt;</span> أصغر من','<span class="k">&gt;=</span> أكبر من أو يساوي','<span class="k">&lt;=</span> أصغر من أو يساوي','else if تُستخدم عندما نحتاج أكثر من شرط للاختيار.'],
+ex:[
+{t:'مثال: المعامل >= مع word',c:'let word = 60;\nif (word >= 70){\n  console.log("pass");\n} else {\n  console.log("fail");\n}',o:'fail',e:'60 ليست أكبر أو تساوي 70 فنُفذ else.'},
+{t:'مثال: المعامل > مع height',c:'let height = 130;\nif (height > 130){\n  console.log("Can ride");\n} else {\n  console.log("Cannot ride");\n}',o:'Cannot ride',e:'130 ليس أكبر من 130 فنُفذ else — انتبه للفرق بين > و >=.'},
+{t:'مثال: else if مع num',c:'let num = 2;\nif (num == 1){\n  console.log("New bicycle");\n} else if (num == 2){\n  console.log("Pair of tickets to the aquarium");\n}',o:'Pair of tickets to the aquarium',e:'الشرط الأول فشل فانتقلنا لـ else if الذي تحقق.'}],
+mis:['الخلط بين > و >= — فـ130 ليس أكبر من 130 لكنه يساويه.','الظن أن else if يُنفذ دائمًا — يُنفذ فقط إذا فشلت الشروط السابقة.','نسيان أن العامل <= يعني أصغر أو يساوي وليس أصغر فقط.'],
+quick:[
+{q:'ماذا تعني A >= B ؟',a:'تعني أن A أكبر من أو يساوي B.'},
+{q:'هل نتيجة 130 > 130 صحيحة؟',a:'لا، 130 ليس أكبر من 130 لكنه يساويه — هنا نستخدم >=.'},
+{q:'متى نستخدم else if ؟',a:'عندما نحتاج أكثر من شرط للاختيار.'}],
+skills:['معاملات المقارنة','تنفيذ >=','تنفيذ >','else if']},
+
+/* ---- الدرس 7 ---- */
+{id:'l7',u:'u2',icon:'🎛️',title:'الشرطان معًا (&& و ||)',
+obj:['أكتب تعبيرًا شرطيًا بشرطين باستخدام &&','أفهم أن && يتطلب تحقق الشرطين معًا','أستخدم || عندما يكفي شرط واحد','أعرف أسماء الرمزين & و |'],
+steps:[
+{t:'<b>كيفية كتابة التعبير الشرطي عندما يكون هناك شرطان؟</b> انظر المثال:',c:'let numberOfPeople = 3;\nlet fee = 3500;\nif (numberOfPeople >= 2 && fee >= 3000){\n  console.log("20% off");\n}'},
+{t:'<b>ما هو رمز &؟</b> رمز & في عالم البرمجة يسمى <b>Ampersand</b>. إذا كتبنا Condition 1 && Condition 2 فهنا يعني الشرط الأول <b>والشرط الثاني</b> يجب أن يتحققا معًا.'},
+{t:'<b>معلومة سريعة:</b> عندما نستخدم <span class="k">&&</span> يجب أن يكون الشرطان صحيحين في نفس الوقت.'},
+{t:'<b>النتيجة:</b> لأن الشروط تحققت: 3 >= 2 ✔ و 3500 >= 3000 ✔ لذلك سيتم طباعة: 20% off.'},
+{t:'<b>في سطر واحد فقط:</b> استخدم <b>Or</b> — الخط العمودي <span class="k">|</span> وهو رمز يسمى <b>Vertical bar</b>. كلمة Or تعني أن يتحقق شرط واحد على الأقل:',c:'if (numberOfPeople >= 2 || fee >= 3000){\n  console.log("10% off");\n}',o:'10% off'},
+{t:'<b>تذكر:</b> <span class="k">||</span> هو رمز OR (أو) في عالم البرمجة. يكفي تحقق شرط واحد فقط ليكون الشرط كله صحيحًا.'},
+{t:'<b>مثال:</b> أعلن المتغير age وأسند له قيمة 15. إذا كان أقل من أو يساوي 12 أو أكبر من أو يساوي 65 يخرج 30% off:',c:'let age = 15;\nif (age <= 12 || age >= 65){\n  console.log("30% off");\n}'},
+{t:'<b>النتيجة:</b> لأن 15 ليست أقل من أو تساوي 12 وليست أكبر من أو يساوي 65، لن يتم تنفيذ الشرط ولن تظهر 30% off.'},
+{t:'<b>المشغل ||</b> يُستخدم إذا أردت أن يتحقق شرط واحد على الأقل من الشرطين.'}],
+rules:['<span class="k">Condition 1 && Condition 2</span> → يجب أن يتحقق الشرطان معًا.','<span class="k">Condition 1 || Condition 2</span> → يكفي تحقق شرط واحد على الأقل.','رمز & يسمى <b>Ampersand</b>، والخط العمودي | يسمى <b>Vertical bar</b>.','إذا كتبت "Condition 1 || Condition 2" فهذا يعني الشرط الأول أو الشرط الثاني.'],
+ex:[
+{t:'مثال && : خصم الشروط المتحققة معًا',c:'let numberOfPeople = 3;\nlet fee = 3500;\nif (numberOfPeople >= 2 && fee >= 3000){\n  console.log("20% off");\n}',o:'20% off',e:'الشرطان تحققا في نفس الوقت: 3 >= 2 ✔ و 3500 >= 3000 ✔.'},
+{t:'مثال || : لا يتحقق أي شرط',c:'let age = 15;\nif (age <= 12 || age >= 65){\n  console.log("30% off");\n}',o:'(لا شيء)',e:'لا يتحقق أي شرط (15 ليست ≤ 12 وليست ≥ 65) فلا يطبع شيء.'},
+{t:'مثال || : شرط واحد يكفي',c:'let numberOfPeople = 3;\nlet fee = 3500;\nif (numberOfPeople >= 2 || fee >= 3000){\n  console.log("30% off");\n}',o:'30% off',e:'numberOfPeople >= 2 ✔ و fee >= 3000 ✔ — يكفي تحقق واحد فتطبع 30% off.'}],
+mis:['استخدام && معتقدًا أنه يكفي تحقق شرط واحد.','استخدام || معتقدًا أنه يجب تحقق الشرطين معًا.','نسيان فحص الشرطين كلاهما عند كتابة التعبير الشرطي المزدوج.'],
+quick:[
+{q:'ماذا يعني && ؟',a:'يعني أن الشرط الأول والثاني يجب أن يتحققا معًا.'},
+{q:'ماذا يعني || ؟',a:'يكفي تحقق شرط واحد فقط ليكون الشرط كله صحيحًا.'},
+{q:'ما اسم رمز & ؟',a:'يسمى Ampersand.'}],
+skills:['المعامل &&','المعامل ||','رموز && و ||']},
+
+/* ---- الدرس 8 ---- */
+{id:'l8',u:'u3',icon:'🔁',title:'العملية التكرارية (for)',
+obj:['أفهم معنى العملية التكرارية','أكتب حلقة for بأجزائها الثلاثة','أتحكم في عدد التكرارات','أستخدم الطريقة الأسهل i++'],
+steps:[
+{t:'<b>ماذا تعني العملية التكرارية؟</b> هي أنك تريد كتابة شيء عدة مرات، ولكن لم تكتبها بهذه الطريقة — لذلك لو تريد كتابة شيء 100 مرة سوف تحتاج يومًا كاملًا!'},
+{t:'مثلًا لطباعة silk خمس مرات نكتب الأمر خمس مرات — لكن هناك كود أسهل بكثير والناتج سيكون نفس الكتابة السابقة.'},
+{t:'<b>الكود السحري:</b>',c:'for (let count = 0; count < 10; count = count + 1) {\n  console.log("silk");\n}',o:'silk (10 مرات)'},
+{t:'<b>النتيجة:</b> سوف يكتبها لك <b>10 مرات</b>! وأجزاء الحلقة الثلاثة:'},
+{t:'1️⃣ <b>قيمة المتغير count</b> تبدأ من 0'},
+{t:'2️⃣ <b>شرط التكرار:</b> ما دام أصغر من 10'},
+{t:'3️⃣ <b>تحديث المتغير:</b> أضف 1 لقيمة المتغير في كل مرة'},
+{t:'<b>تذكر:</b> حلقة for تكرر طالما الشرط صحيح.'},
+{t:'<b>مثال 2:</b> اطبع لي كلمة Deer 10 مرات في وحدة التحكم بشرط أن يكون في 3 أسطر فقط:',c:"for (let count = 0; count < 10; count = count + 1){\n  console.log('deer');\n}"},
+{t:'<b>شرح الإجراء:</b> الفاصلة المنقوطة <span class="k">;</span> تعني فاصل تفاصيل في البرنامج، لذلك يجب وضعها بين أجزاء البرنامج.'},
+{t:'<b>طريقة أسهل!</b> يمكننا تسهيل الأمر أكثر عن طريق كتابة الكود بشكل أسهل:',c:"for (let i = 0; i < 10; i++){\n  console.log('genius');\n}"},
+{t:'هذه الطريقة أسهل للكتابة والفهم. وإذا أردت أن يتكرر ثلاث مرات فقط، اكتب <span class="k">i &lt; 3</span> — ومن ذلك تفهم أنك تستطيع تغيير عدد التكرار بمجرد أن تغير الرقم فقط.'}],
+rules:['<span class="k">for (البداية; الشرط; التحديث) { الكود }</span>','حلقة for تكرر طالما الشرط صحيح.','الفاصلة المنقوطة ; تفصل بين أجزاء الحلقة.','<span class="k">i++</span> اختصار أسهل لإضافة 1 في كل مرة.'],
+ex:[
+{t:'مثال: التكرار 10 مرات',c:'for (let count = 0; count < 10; count = count + 1) {\n  console.log("silk");\n}',o:'silk × 10',e:'يبدأ من 0 ويستمر طالما count < 10 أي 10 مرات.'},
+{t:'مثال: 3 أسطر فقط',c:"for (let count = 0; count < 10; count = count + 1){\n  console.log('deer');\n}",o:'deer × 10',e:'حل من ثلاثة أسطر يطبع deer عشر مرات.'},
+{t:'مثال: الطريقة الأسهل',c:"for (let i = 0; i < 10; i++){\n  console.log('genius');\n}",o:'genius × 10',e:'i++ اختصار لـ count = count + 1 وأسهل للكتابة والفهم.'}],
+mis:['نسيان تحديث المتغير فلا تتوقف الحلقة أبدًا.','الالتباس بين < و <= في عدد التكرارات.','نسيان الفواصل المنقوطة بين أجزاء الحلقة.'],
+quick:[
+{q:'كم مرة يتكرر for (let i = 0; i < 10; i++) ؟',a:'10 مرات: من 0 إلى 9.'},
+{q:'ماذا يعني i++ ؟',a:'اختصار أسهل يعني أضف 1 لقيمة المتغير في كل مرة.'},
+{q:'متى تتوقف حلقة for ؟',a:'تتكرر طالما الشرط صحيح، وتتوقف عندما يصبح غير صحيح.'}],
+skills:['مفهوم التكرار','حلقة for','عدد التكرارات','الطريقة الأسهل i++','الفاصلة المنقوطة']},
+
+/* ---- الدرس 9 ---- */
+{id:'l9',u:'u3',icon:'⚙️',title:'الدوال: الجاهزة والمخصصة',
+obj:['أستخدم Math.round للتقريب','أستخدم Math.max و Math.min','أنتبه لحرف M الكبير','أنشئ دالة خاصة بكلمة function وأرجع النتيجة بـ return'],
+steps:[
+{t:'حتى الآن كنا نستخدم دوال جاهزة تقوم بالتقريب إلى أقرب عدد صحيح أو تخبرنا بالقيمة العظمى والصغرى. لكن يمكننا أن نقوم نحن بإنشاء دالة خاصة!'},
+{t:'<b>مثال 3:</b> لو لديك رقم مثل 9.6 وتريد أن تقربه إلى 10:',c:'console.log(Math.round(9.6));',o:'10'},
+{t:'<b>شرح الدالة:</b> احذر! حرف M لازم أن يُكتب <b>كبيرًا</b>. إذا كتبته صغيرًا فسوف يحدث خطأ.'},
+{t:'<b>مثال 4:</b> كتابة دالة تخبرك بالقيمة العظمى — تكتب (Math.max):',c:'console.log(Math.max(5,10,50));',o:'50'},
+{t:'<b>مثال 5:</b> كتابة دالة تخبرك بالقيمة الصغرى — تكتب (Math.min):',c:'console.log(Math.min(5,10,50));',o:'5'},
+{t:'<b>تذكر:</b> دوال Math مفيدة جدًا في التعامل مع الأرقام. تأكد دائمًا من كتابة حرف M كبير لكي تعمل الدالة بشكل صحيح.'},
+{t:'<b>إنشاء دوال خاصة بك:</b> يمكنك إنشاء دوال خاصة بك لأداء عمليات محددة تمامًا مثل الدوال الجاهزة (Math.min). يجب أن تبدأ دائمًا بكلمة <span class="k">function</span> لتعرف أنك هتنشئ دالة، ويتم اختيار اسم للدالة مثل min2 — وفي أسماء الدوال أو المتغيرات <b>لا يمكن استخدام المسافات</b>.'},
+{t:'<b>دالة مخصصة: min2</b> — مثال min2(5,10):',c:'function min2(num1, num2) {\n  let result;\n  if (num1 < num2) {\n    result = num1;\n  } else {\n    result = num2;\n  }\n  return result;\n}'},
+{t:'أجزاء الدالة: تحديد أسماء الدالة والوسيطات ← تحديد الإجراء الذي ستقوم به ← إرجاع قيمة النتيجة بـ <span class="k">return</span>.'},
+{t:'<b>مثال تطبيقي:</b> أنا واثنين صحابي والحساب هيبقي 2800 — لو عايزين نقسم الحساب علينا نعملها إزاي بالدوال؟',c:'function split3(total) {\n  let result = total / 3;\n  return result;\n}\nconsole.log(split3(2800));',o:'933.33...'},
+{t:'<b>شرح سريع للكود:</b> تستقبل الدالة قيمة واحدة (المجموع) ← تقسم القيمة على 3 ← ترجع الناتج (قيمة كل شخص). وهكذا عملنا الدالة وهيطلع لنا نصيب كل واحد وهو 933.'}],
+rules:['<span class="k">Math.round()</span> تقرب إلى أقرب عدد صحيح.','<span class="k">Math.max()</span> تعيد القيمة العظمى، و<span class="k">Math.min()</span> تعيد القيمة الصغرى.','حرف M في Math يجب أن يُكتب كبيرًا دائمًا.','الدالة تبدأ بكلمة <span class="k">function</span> ثم اسمها والوسيطات ( ) ثم { الكود } و<span class="k">return</span> لإرجاع النتيجة.','لا يمكن استخدام المسافات في أسماء الدوال أو المتغيرات.'],
+ex:[
+{t:'مثال: التقريب',c:'console.log(Math.round(9.6));',o:'10',e:'Math.round قرّبت 9.6 إلى أقرب عدد صحيح.'},
+{t:'مثال: القيمة العظمى والصغرى',c:'console.log(Math.max(5,10,50));\nconsole.log(Math.min(5,10,50));',o:'50\n5',e:'Math.max أعادت 50 و Math.min أعادت 5.'},
+{t:'مثال تطبيقي: قسمة الحساب',c:'function split3(total) {\n  let result = total / 3;\n  return result;\n}\nconsole.log(split3(2800));',o:'933.33...',e:'الدالة تستقبل المجموع، تقسمه على 3، وترجع نصيب كل شخص (933).'}],
+mis:['كتابة math بحرف صغير فلا تعمل الدالة بشكل صحيح.','نسيان return فلا تُرجع الدالة نتيجة.','وضع مسافة في اسم الدالة أو المتغير.'],
+quick:[
+{q:'ماذا تفعل Math.max(5,10,50) ؟',a:'تعيد القيمة العظمى وهي 50.'},
+{q:'ما الذي يجب الانتباه له عند كتابة Math ؟',a:'حرف M يجب أن يُكتب كبيرًا وإلا حدث خطأ.'},
+{q:'بأي كلمة نبدأ إنشاء دالة خاصة؟',a:'بكلمة function دائمًا.'}],
+skills:['Math.round','Math.max و Math.min','حرف M الكبير','إنشاء دالة','return','الوسيطات','مثال تطبيقي split3']},
+
+/* ---- الدرس 10 ---- */
+{id:'l10',u:'u4',icon:'✏️',title:'الأنواع والأقتباس',
+obj:['أميّز بين كتابة الأرقام والنصوص','أكتب القيمة النصية بين اقتباس مزدوج','أفهم أن أي نص بين " " يعتبر نصًا وليس رقمًا'],
+steps:[
+{t:'<b>سؤال:</b> يمكن أن تُخطئ في حروف المتغيرات… طلب اعملها إزاي؟ لاحظ المثالين:'},
+{t:'<b>مثال (1):</b> الرقم بدون اقتباس:',c:'let fee = 1000;\nif (fee == 1000) {\n  console.log("50 codycoins off");\n}',o:'50 codycoins off'},
+{t:'<b>مثال (2):</b> اكتب الحروف بين اقتباس مزدوج ونقول بقيمة نصية أيضًا:',c:'let fee = "1000 codycoins";\nif (fee == "1000 codycoins") {\n  console.log("50 codycoins off");\n}',o:'50 codycoins off'},
+{t:'<b>تذكر جيدًا:</b> لقد قدرت تحريف حروف المتغيرات بس خلي بالك لازم تحط علامات الاقتباس في الكلام ده (<b>أي نص بين " " يعتبر نص وليس رقم</b>).'},
+{t:'<b>ملخص سريع:</b> ✅ الأرقام بدون اقتباس ✅ النصوص بين اقتباس مزدوج.'},
+{t:'<b>نصيحة:</b> كلما استخدمت الاقتباس المزدوج للنصوص تجنبت الأخطاء في المقارنات.'}],
+rules:['الأرقام تُكتب <b>بدون</b> اقتباس: <span class="k">let fee = 1000;</span>','النصوص تُكتب <b>بين</b> اقتباس مزدوج: <span class="k">let fee = "1000 codycoins";</span>','أي نص بين " " يعتبر نصًا وليس رقمًا.'],
+ex:[
+{t:'مثال (1): مقارنة عددية',c:'let fee = 1000;\nif (fee == 1000) {\n  console.log("50 codycoins off");\n}',o:'50 codycoins off',e:'fee رقم 1000 فتتحقق المقارنة مع الرقم 1000.'},
+{t:'مثال (2): مقارنة نصية',c:'let fee = "1000 codycoins";\nif (fee == "1000 codycoins") {\n  console.log("50 codycoins off");\n}',o:'50 codycoins off',e:'المقارنة بين نصين متطابقين تتحقق.'}],
+mis:['كتابة الأرقام بين اقتباس فتصبح نصوصًا وتفشل المقارنات العددية.','نسيان الاقتباس حول النصوص.','الخلط بين الأرقام والنصوص في نفس المقارنة.'],
+quick:[
+{q:'كيف نكتب الأرقام؟',a:'بدون اقتباس.'},
+{q:'كيف نكتب النصوص؟',a:'بين اقتباس مزدوج " ".'},
+{q:'"1000" رقم أم نص؟',a:'نص، لأن أي نص بين " " يعتبر نصًا وليس رقمًا.'}],
+skills:['القيمة النصية','ملخص الأنواع','المقارنة النصية','المقارنة العددية']},
+
+/* ---- الدرس 11 ---- */
+{id:'l11',u:'u4',icon:'🔍',title:'أنواع البيانات و typeof والمقارنة',
+obj:['أعرف الفرق بين سلسلة نصية string وقيمة عددية number','أستخدم typeof لتحديد النوع','أفهم الفرق بين == و ==='],
+steps:[
+{t:'<b>ما الفرق بين السطرين؟</b>'},
+{t:'السطر الأول: مطبوع بعلامات اقتباس (يطبع سلسلة نصية string):',c:'console.log("1+1");',o:'1+1'},
+{t:'السطر الثاني: ليس مطبوعًا بعلامات اقتباس (يطبع نتيجة حساب عددي numerical value):',c:'console.log(1+1);',o:'2'},
+{t:'<b>تحديد النوع:</b> لو أنت مش متأكد وعايز الكمبيوتر هو اللي يقولك هي نصية ولا قيمة عددية، اكتب <span class="k">console.log(typeof ...)</span> — هذا الأمر يعيد نوع البيانات الموجودة داخل الأقواس.'},
+{t:'<b>مثال 1:</b>',c:'console.log(typeof 100);',o:'number'},
+{t:'number تعني أنها قيمة عدّية.'},
+{t:'<b>مثال 2:</b>',c:'console.log(typeof "Hello");',o:'string'},
+{t:'String تعني أنها سلسلة نصية. فهم الفرق بين السلاسل النصية والقيم العددية مهم جدًا في كتابة البرامج وتجنب الأخطاء.'},
+{t:'<b>مقارنة القيم والأنواع:</b> هل الكمبيوتر يعرف الفرق بين القيمة العددية والسلسلة النصية؟ نعم! هو ممكن يقولك النتيجة صحيح ولا غلط:'},
+{t:'المقارنة بعلامتين == (تقارن القيمة فقط):',c:'console.log(1 == "1");',o:'true'},
+{t:'المقارنة بثلاث علامات === (أكثر صرامة — تقارن القيمة والنوع معًا):',c:'console.log(1 === "1");',o:'false'}],
+rules:['<span class="k">typeof</span> يعيد نوع البيانات الموجودة داخل الأقواس.','number تعني قيمة عددية، وstring تعني سلسلة نصية.','<span class="k">1 == "1"</span> → true لأن == تقارن القيمة.','<span class="k">1 === "1"</span> → false لأن === تقارن القيمة والنوع معًا.'],
+ex:[
+{t:'مثال: النص مقابل الحساب',c:'console.log("1+1");\nconsole.log(1+1);',o:'1+1\n2',e:'بين الاقتباس تطبع كما هي، وبدون اقتباس تطبع نتيجة الحساب.'},
+{t:'مثال: typeof مع رقم ونص',c:'console.log(typeof 100);\nconsole.log(typeof "Hello");',o:'number\nstring',e:'typeof يحدد نوع كل قيمة.'},
+{t:'مثال: مقارنة القيم والأنواع',c:'console.log(1 == "1");\nconsole.log(1 === "1");',o:'true\nfalse',e:'== تقبل تطابق القيمة، أما === فتشترط تطابق القيمة والنوع.'}],
+mis:['الظن أن "1+1" تطبع 2 — بل تطبع النص كما هو.','الخلط بين == و === في المقارنات.','الظن أن typeof يطبع القيمة نفسها — بل يطبع نوعها.'],
+quick:[
+{q:'ماذا يعيد typeof 100 ؟',a:'يعيد number لأنها قيمة عددية.'},
+{q:'ماذا يعيد typeof "Hello" ؟',a:'يعيد string لأنها سلسلة نصية.'},
+{q:'ما نتيجة 1 === "1" ؟',a:'false لأن القيمة أو النوع مختلف — === أكثر صرامة.'}],
+skills:['الفرق بين النص والرقم','typeof','مقارنة القيم والأنواع']},
+
+/* ---- الدرس 12 ---- */
+{id:'l12',u:'u4',icon:'🔄',title:'التحويل بين الأنواع (Number و NaN)',
+obj:['أحوّل النص إلى قيمة عددية بـ Number()','أعرف معنى NaN ومتى تظهر','أميّز النصوص الرقمية التي تتحول بنجاح'],
+steps:[
+{t:'سأخبرك كيف تغيّر نوع البيانات. على سبيل المثال، النص "100" هو نص لكن يمكنك تغييره إلى قيمة عددية بكتابة برنامج مثل هذا:'},
+{t:'<b>إلى قيمة عددية:</b>',c:'console.log(Number("100"));',o:'100'},
+{t:'<b>نص آخر إلى قيمة عددية:</b>',c:'console.log(Number("Hello"));',o:'NaN'},
+{t:'<b>ما هو NaN؟</b> NaN اختصار لـ <b>Not Number</b> وهذا يعني أنه لا يمكن تحويلها إلى قيمة عددية.'},
+{t:'<b>هل تتذكر؟</b> NaN هي قيمة خاصة تُستخدم للتعبير عن عدم إمكانية التحويل إلى رقم.'},
+{t:'<b>ملاحظة سريعة:</b> عندما نحول نصًا يبدو أنه رقم مثل "100" يتحول إلى رقم فعلي. أما النصوص التي ليست أرقامًا مثل "Hello" تصبح NaN.'}],
+rules:['<span class="k">Number("نص")</span> تحوّل النص الرقمي إلى قيمة عددية.','<span class="k">NaN = Not Number</span> تعني تعذر التحويل إلى رقم.','النصوص الرقمية (مثل "100") تتحول بنجاح، والنصوص غير الرقمية (مثل "Hello") تصبح NaN.'],
+ex:[
+{t:'مثال: تحويل نص رقمي',c:'console.log(Number("100"));',o:'100',e:'النص الذي يبدو رقمًا يتحول إلى رقم فعلي.'},
+{t:'مثال: تحويل نص غير رقمي',c:'console.log(Number("Hello"));',o:'NaN',e:'لا يمكن تحويل Hello لرقم فتظهر NaN دون إيقاف البرنامج.'}],
+mis:['الظن أن Number("Hello") يعطي صفرًا أو يوقف البرنامج — بل يظهر NaN.','الظن أن "100" تبقى نصًا بعد التحويل.','نسيان الأقواس حول النص داخل Number.'],
+quick:[
+{q:'ما ناتج Number("100") ؟',a:'الرقم 100.'},
+{q:'ما معنى NaN ؟',a:'Not Number — قيمة خاصة تعبر عن عدم إمكانية التحويل إلى رقم.'},
+{q:'ما ناتج Number("Hello") ؟',a:'NaN لأن النص ليس رقمًا.'}],
+skills:['التحويل إلى رقم','NaN']},
+
+/* ---- الدرس 13 ---- */
+{id:'l13',u:'u5',icon:'🗃️',title:'المصفوفة والفهرس',
+obj:['أفهم لماذا نستخدم المصفوفة','أنشئ مصفوفة في سطر واحد','أصل لعنصر عبر فهرسه','أعرف أن الفهرس يبدأ من 0'],
+steps:[
+{t:'<b>آخر درس في الترم الأول:</b> لنفرض أن درجات الحرارة منذ الأسبوع الماضي كانت: 28، 33، 36، 36، 36، 26، 27 — بدلًا من أن نكتبها هكذا:'},
+{t:'<b>نستخدم متغيرات منفصلة:</b>',c:'let temp1 = 36;\nlet temp2 = 36;\nlet temp3 = 26;\nlet temp4 = 27;\nlet temp5 = 28;\nlet temp6 = 33;\nlet temp7 = 36;'},
+{t:'<b>معلومة سريعة:</b> كل متغير يحتوي درجة واحدة فقط. لكن لو زادت الدرجات… سنعاني مع متغيرات كثيرة!'},
+{t:'<b>أو نستخدم مصفوفة (سطر واحد):</b>',c:'let tempList = [36, 36, 26, 27, 28, 33, 36];',o:'كل الدرجات في مكان واحد!'},
+{t:'<b>فكرة مهمة:</b> المصفوفة تساعدنا نكتب بيانات كثيرة بشكل مرتب ونسهل الوصول إليها وهي أساس كل أمثلة هذا الدرس!'},
+{t:'إذا اعتبَرنا المتغير <b>"صندوقًا يحمل قيمة"</b> فإن المصفوفة هي <b>"مجموعة صناديق متشابهة معًا"</b>.'},
+{t:'<b>مثال عملي:</b> لو أنت عايز تعرف درجة حرارة اليوم الخامس وهي 28 تكتبها إزاي؟',c:'let tempList = [36, 36, 26, 27, 28, 33, 36];\nconsole.log(tempList[4]);',o:'28'},
+{t:'هتلاقي إني كنت كاتب 4 وعايز يطلع لي اليوم الخامس؟ هقولك: المصفوفة بتعد من 0 — <b>فهرس المصفوفة يبدأ من 0</b>: [0]=36 و[1]=36 و[2]=26 و[3]=27 و[4]=28 و[5]=33 و[6]=36.'},
+{t:'<b>تذكر:</b> المصفوفة تشبه كتابًا كبيرًا من القيم المرتبة في سطر واحد والوصول لأي قيمة بسهولة! <b>معلومة إضافية:</b> المصفوفة تخزن بيانات من نفس النوع وتستخدم للوصول لأي قيمة عن طريق فهرسها.'}],
+rules:['المصفوفة تُكتب بين <span class="k">[ ]</span> والعناصر مفصولة بفواصل.','الوصول للعنصر عبر فهرسه: <span class="k">tempList[رقم الفهرس]</span>.','فهرس المصفوفة يبدأ من <b>0</b> وليس من 1.','المصفوفة تخزن بيانات من نفس النوع.'],
+ex:[
+{t:'مثال عملي: درجة اليوم الخامس',c:'let tempList = [36, 36, 26, 27, 28, 33, 36];\nconsole.log(tempList[4]);',o:'28',e:'الفهرس [4] يعيد اليوم الخامس لأن العد يبدأ من 0.'},
+{t:'مثال: أول عنصر',c:'console.log(tempList[0]);',o:'36',e:'الفهرس 0 يعيد أول عنصر في المصفوفة.'}],
+mis:['الظن أن الفهرس يبدأ من 1 — بل يبدأ من 0.','استخدام فهرس خارج حدود المصفوفة.','نسيان الفواصل بين عناصر المصفوفة.'],
+quick:[
+{q:'من أي رقم يبدأ فهرس المصفوفة؟',a:'يبدأ من 0 وليس من 1.'},
+{q:'ماذا يعيد tempList[0] ؟',a:'أول عنصر في المصفوفة (36 في مثالنا).'},
+{q:'إلى ماذا تشبه المصفوفة؟',a:'"مجموعة صناديق متشابهة معًا" في مقابل المتغير الذي هو صندوق واحد.'}],
+skills:['مفهوم المصفوفة','تعريف المصفوفة','الفهرس']},
+
+/* ---- الدرس 14 ---- */
+{id:'l14',u:'u5',icon:'➕',title:'جمع عناصر المصفوفة و length',
+obj:['أجمع عناصر المصفوفة بحلقة for','أحسب متوسط القيم','أستخدم length لمعرفة عدد العناصر'],
+steps:[
+{t:'<b>مثال 1:</b> أسند مصفوفة إلى متغير، اجمع كل درجات الحرارة للأسبوع، واقسم المجموع على أسبوع واحد (7 أيام).'},
+{t:'<b>الحل:</b>',c:'let tempList = [36, 36, 26, 27, 28, 33, 36];\nlet total = 0;\nfor(let i = 0; i < 7; i++){\n  total = total + tempList[i];\n}\nconsole.log(total);',o:'222'},
+{t:'<b>شرح سريع:</b> نبدأ المتغير total = 0 ثم نكرر على عناصر المصفوفة من الفهرس 0 إلى 6 (أي 7 عناصر) ونجمع كل قيمة فيها. النتيجة: مجموع درجات الحرارة للأسبوع = <b>222</b>.'},
+{t:'<b>لو عايز نقسم المجموع على عدد الأيام</b> (7 أيام) عشان نعرف المتوسط:',c:'console.log(total / 7);',o:'31.71'},
+{t:'المتوسط ≈ <b>31.71</b>.'},
+{t:'<b>لو عايز تجيب طول المصفوفة</b> (عدد عناصرها):',c:'let tempList = [36, 36, 26, 27, 28, 33, 36, 30, 28, 29];\nconsole.log(tempList.length);',o:'10'},
+{t:'طول المصفوفة = <b>10</b>.'},
+{t:'<b>تذكر:</b> المصفوفة تخزن عدة قيم من نفس النوع • نستخدم الفهرس للوصول لأي عنصر • الفهرس يبدأ من 0 وليس من 1 • length ترجع عدد العناصر وليس آخر فهرس.'},
+{t:'<b>معلومة مهمة:</b> خاصية length ترجع عدد عناصر المصفوفة دائمًا.'}],
+rules:['<span class="k">let total = 0;</span> ثم داخل الحلقة: <span class="k">total = total + tempList[i];</span>','<span class="k">length</span> ترجع عدد عناصر المصفوفة دائمًا.','المتوسط = المجموع ÷ عدد العناصر.','آخر فهرس = الطول − 1 (لمصفوفة من 7 عناصر آخر فهرس هو 6).'],
+ex:[
+{t:'مثال: جمع درجات الأسبوع',c:'let tempList = [36, 36, 26, 27, 28, 33, 36];\nlet total = 0;\nfor(let i = 0; i < 7; i++){\n  total = total + tempList[i];\n}\nconsole.log(total);',o:'222',e:'نكرر على 7 عناصر (فهارس 0 إلى 6) ونجمع كل قيمة.'},
+{t:'مثال: المتوسط',c:'console.log(total / 7);',o:'31.71',e:'قسمنا المجموع 222 على عدد الأيام 7.'},
+{t:'مثال: طول المصفوفة',c:'let tempList = [36, 36, 26, 27, 28, 33, 36, 30, 28, 29];\nconsole.log(tempList.length);',o:'10',e:'length ترجع عدد العناصر = 10 وليس آخر فهرس (9).'}],
+mis:['استخدام tempList[7] للوصول لآخر عنصر في مصفوفة من 7 عناصر — الفهرس الأخير هو 6.','الخلط بين length وآخر فهرس.','نسيان تصفير total = 0 قبل الحلقة.'],
+quick:[
+{q:'ماذا ترجع خاصية length ؟',a:'ترجع عدد عناصر المصفوفة دائمًا وليس آخر فهرس.'},
+{q:'ما مجموع درجات الحرارة في مثال الأسبوع؟',a:'222.'},
+{q:'ما المتوسط في المثال؟',a:'المتوسط ≈ 31.71 (المجموع 222 ÷ 7 أيام).'}],
+skills:['جمع العناصر','حساب المتوسط','خاصية length','الفهرس و length']}];
+
+/* =============== بنك الأسئلة (من محتوى الكتاب) =============== */
+function Q(id,t,q,opts,a,x,s,c){const o={id,t,q,opts,a,x,s};if(c)o.c=c;return o}
+const QUESTIONS={
+l1:[Q('l1q1','mcq','أي أمر يُستخدم لطباعة النتائج في وحدة التحكم؟',['console.log','print.log','console.write','log.print'],0,'الأمر console.log هو الذي نستخدمه لطباعة النتائج في وحدة التحكم.','الأمر console.log'),
+Q('l1q2','mcq','أي سطر يطبع كلمة Hello بشكل صحيح؟',['console.log("Hello");','console.log(Hello);','Console.log("Hello")','log.console("Hello");'],0,'النص يجب أن يوضع بين علامتي اقتباس " " وينتهي السطر بفاصلة منقوطة ;.','علامات الاقتباس والفاصلة المنقوطة'),
+Q('l1q3','tf','عند وضع // في أول الجملة يعتبرها الكمبيوتر تعليقًا لا ينفذها.',null,true,'// تخبر الكمبيوتر أن السطر ملاحظة وليست كودًا.','التعليقات //'),
+Q('l1q4','fill','لطباعة نص نضعه بين علامتي ____ ثم نغلق السطر بفاصلة منقوطة.',['" "','( )','{ }','//'],0,'النص يوضع دائمًا بين علامتي اقتباس مزدوجة.','علامات الاقتباس والفاصلة المنقوطة'),
+Q('l1q5','input','ما ناتج تنفيذ السطر: console.log(2+2); ؟',null,['4'],'بدون اقتباس يحل الكمبيوتر المسألة ويطبع الناتج: 4.','العمليات الحسابية الأربع'),
+Q('l1q6','mcq','أي الرموز التالية تُستخدم للضرب في البرمجة؟',['*','x','×','^'],0,'الضرب يُكتب بنجمة * وليس × أو x.','العمليات الحسابية الأربع'),
+Q('l1q7','tf','يمكن استخدام رمز القسمة ÷ داخل الكود.',null,false,'في البرمجة نستخدم الرمز / للقسمة وليس ÷.','العمليات الحسابية الأربع'),
+Q('l1q8','mcq','ماذا يطبع السطر: console.log("Hello"); ؟',['Hello','"Hello"','خطأ','لا شيء'],0,'يطبع النص الموجود بين الاقتباس دون علامات الاقتباس نفسها.','الأمر console.log'),
+Q('l1q9','order','رتّب خطوات كتابة أول سطر كود يطبع كلمة Hi:',['اكتب console.log ثم الأقواس ( )','ضع النص بين علامتي اقتباس " " داخل الأقواس','أغلق السطر بفاصلة منقوطة ;'],null,'الترتيب الصحيح: الأمر ثم النص بين اقتباس ثم الفاصلة المنقوطة.','الأمر console.log'),
+Q('l1q10','input','ما الرمزان اللذان نضعهما في أول الجملة حتى تكون تعليقًا (ملاحظة) لا ينفذه الكمبيوتر؟',null,['//'],'نضع // في أول الجملة.','التعليقات //'),
+Q('l1q11','mcq','ما ناتج console.log(10-5); ؟',['5','15','50','-5'],0,'10-5 = 5.','العمليات الحسابية الأربع'),
+Q('l1q12','match','اربط كل رمز بعملته:',[['+','الجمع'],['-','الطرح'],['*','الضرب'],['/','القسمة']],null,'+ جمع، - طرح، * ضرب، / قسمة.','العمليات الحسابية الأربع')],
+l2:[Q('l2q1','mcq','ما اسم الرموز المستخدمة للحساب مثل + و - و * و / ؟',['المعاملات الحسابية (Operators)','المتغيرات','الدوال','الحلقات'],0,'المعاملات الحسابية (Operators) هي الرموز المستخدمة للحساب.','المعاملات الحسابية'),
+Q('l2q2','mcq','ما ناتج: console.log(432+345); ؟',['777','787','767','788'],0,'432+345 = 777.','الجمع'),
+Q('l2q3','mcq','ما ناتج: console.log(100-50); ؟',['50','150','-50','500'],0,'100-50 = 50.','الطرح'),
+Q('l2q4','tf','رمز القسمة في البرمجة هو / .',null,true,'القسمة تستخدم الرمز / بينما الضرب يستخدم *.','رموز الضرب والقسمة'),
+Q('l2q5','input','ما ناتج: console.log(2*2); ؟',null,['4'],'2*2 = 4.','رموز الضرب والقسمة'),
+Q('l2q6','mcq','ما ناتج: console.log(4/2); ؟',['2','8','0.5','4'],0,'4/2 = 2.','رموز الضرب والقسمة'),
+Q('l2q7','mcq','ماذا يطبع معامل باقي القسمة % ؟',['باقي القسمة بدلًا من ناتجها','ناتج القسمة','مجموع الأرقام','فرق الأرقام'],0,'باقي القسمة % يطبع باقي عملية القسمة بدلًا من ناتجها.','باقي القسمة %'),
+Q('l2q8','input','ما ناتج: console.log(5%2); ؟',null,['1'],'5%2 = 1 لأن باقي قسمة 5 على 2 هو 1.','باقي القسمة %'),
+Q('l2q9','match','اربط كل معامل بمعناه:',[['+','الجمع'],['-','الطرح'],['*','الضرب'],['/','القسمة'],['%','باقي القسمة']],null,'خمسة معاملات أساسية للحساب.','المعاملات الحسابية'),
+Q('l2q10','order','رتّب خطوات جعل الكمبيوتر يحسب مسألة رياضية:',['اكتب console.log ثم الأقواس ( )','اكتب الأرقام والعملية بدون علامات اقتباس','أغلق السطر بفاصلة منقوطة ;'],null,'العملية تكتب بدون اقتباس حتى يحلها الكمبيوتر.','العمليات الحسابية الأربع'),
+Q('l2q11','tf','ناتج 5%2 يساوي 2.',null,false,'ناتج 5%2 يساوي 1 (الباقي وليس الناتج).','باقي القسمة %'),
+Q('l2q12','mcq','ماذا يطبع: console.log(9%3); ؟',['0','3','1','9'],0,'9%3 = 0 لأن 9 تقبل القسمة على 3 دون باقي.','باقي القسمة %')],
+l3:[Q('l3q1','mcq','أي سطر يطبع: Set of 2 coffees 500 codycoins في سطر واحد؟',['console.log("Set of 2 coffees " + (250*2) + " codycoins");','console.log("Set of 2 coffees 250*2 codycoins");','console.log("Set of 2 coffees" + 250*2 + "codycoins" );','console.log(Set of 2 coffees + (250*2) + codycoins);'],0,'نحط النصوص بين اقتباس والعملية بين أقواس ونربطها بـ +.','ربط النصوص بالعمليات'),
+Q('l3q2','mcq','ماذا نستخدم لربط النصوص مع نتيجة عملية حسابية؟',['علامة +','علامة -','علامة ,','علامة ;'],0,'نستخدم + لربط النصوص مع المعادلة الحسابية.','ربط النصوص بالعمليات'),
+Q('l3q3','tf','عند الربط نضع العملية الحسابية بين أقواس ( ).',null,true,'من خطوات الربط: أحط المعادلة الحسابية بالأقواس ().','خطوات الربط'),
+Q('l3q4','input','أكمل لإظهار العدد 30 داخل الجملة: console.log("Limited to " + ___ + " servings.");',null,['30'],'نكتب الرقم 30 بدون اقتباس ليُربط مع النص.','ربط النصوص مع الأرقام'),
+Q('l3q5','mcq','ماذا يطبع الكود؟ let name = "JavaScript"; console.log("Hello" + name + "!");',['HelloJavaScript!','Hello JavaScript!','JavaScriptHello!','خطأ'],0,'لا توجد مسافات في النصوص فتظهر الكلمات ملتصقة: HelloJavaScript!','دمج النصوص والأعداد'),
+Q('l3q6','mcq',"ماذا يطبع: console.log(\"Today's recommendation is \" + \"soup.\"); ؟",["Today's recommendation is soup.","Today's recommendation issoup.","Today recommendation is soup.","خطأ"],0,"ربط نصين بعلامة + يطبع النصين معًا.","ربط النصوص مع بعضها"),
+Q('l3q7','order','رتّب خطوات الربط الصحيحة:',['أحط النصوص بعلامتي اقتباس " "','أحط المعادلة الحسابية بالأقواس ( )','أستخدم + لربط النصوص مع المعادلة الحسابية'],null,'هذه هي خطوات الربط الثلاث بالترتيب.','خطوات الربط'),
+Q('l3q8','tf','لو كتبنا العملية داخل علامات الاقتباس مثل "250*2" فستطبع النتيجة 500.',null,false,'ما بين الاقتباس يُطبع كنص كما هو، والنتيجة 500 تحتاج العملية بدون اقتباس.','ربط النصوص بالعمليات'),
+Q('l3q9','mcq','كم سطرًا سيظهر من تنفيذ: console.log("A"); console.log(2+2); console.log("B"); ؟',['3 أسطر','سطر واحد','سطران','4 أسطر'],0,'كل أمر console.log يطبع في سطر منفصل.','ربط النصوص بالعمليات'),
+Q('l3q10','mcq','أي الرموز تُستخدم لعزل العملية الحسابية عند الربط؟',['( )','{ }','[ ]','" "'],0,'نحط العملية الحسابية بين أقواس ( ).','خطوات الربط'),
+Q('l3q11','mcq','ماذا يطبع: console.log("Limited to " + 30 + " servings."); ؟',['Limited to 30 servings.','Limited to servings.','Limited 30','خطأ'],0,'يُربط الرقم 30 مع النصين فيظهر Limited to 30 servings.','ربط النصوص مع الأرقام'),
+Q('l3q12','match','اربط كل عنصر بما نحوطه عند الربط:',[['النص','" "'],['العملية الحسابية','( )'],['الربط','+']],null,'النص بين اقتباس، والعملية بين أقواس، والربط بعلامة +.','خطوات الربط')],
+l4:[Q('l4q1','mcq','المتغير يشبه:',['علبة أو صندوق صغير نحفظ فيه معلومة','شاشة العرض','الطابعة','لوحة المفاتيح'],0,'المتغير زي "علبة" أو "صندوق صغير" نحتفظ فيه بمعلومة معينة.','مفهوم المتغير'),
+Q('l4q2','fill','لتعريف متغير جديد نكتب الكلمة ____ ثم اسم المتغير.',['let','log','if','for'],0,'نكتب let ثم اسم المتغير لتعريفه.','تعريف المتغير'),
+Q('l4q3','mcq','ماذا يطبع الكود؟ let fish; fish = 0; fish = fish + 8; fish = fish + 12; console.log(fish);',['20','12','8','0'],0,'0 + 8 + 12 = 20.','تحديث قيمة المتغير'),
+Q('l4q4','tf','يمكن تغيير قيمة المتغير في أي وقت دون تغيير اسمه.',null,true,'الصندوق يتغير محتواه في أي وقت من غير ما تغير اسمه، علشان كده سمينا متغير.','مفهوم المتغير'),
+Q('l4q5','input','بعد تنفيذ: let x = 5; x = x + 3; ما قيمة x ؟',null,['8'],'5 + 3 = 8.','تحديث قيمة المتغير'),
+Q('l4q6','mcq','كيف نطبع قيمة المتغير fish ؟',['console.log(fish);','console.log("fish");','log.console(fish);','print "fish";'],0,'نكتب اسم المتغير بدون اقتباس داخل console.log.','طباعة المتغير'),
+Q('l4q7','tf','الأمر console.log("fish"); يطبع قيمة المتغير fish.',null,false,'سيطبع كلمة fish كنص وليس قيمة المتغير.','طباعة المتغير'),
+Q('l4q8','order','رتّب خطوات العمل مع المتغير:',['عرّف المتغير بكلمة let','أسند له قيمة باستخدام =','حدّث قيمته بالجمع','اطبع قيمته بـ console.log'],null,'التعريف ثم الإسناد ثم التحديث ثم الطباعة.','تعريف المتغير'),
+Q('l4q9','input','ماذا يطبع؟ let num = 2; num = num + 6; console.log(num);',null,['8'],'2 + 6 = 8.','تحديث قيمة المتغير'),
+Q('l4q10','mcq','في كتابة: اسم_المتغير = رقم; ماذا يعني ذلك؟',['أن المتغير سيحمل قيمة رقمية','حذف المتغير','طباعة المتغير','مقارنة متغيرين'],0,'يعني أن المتغير هيكون رقم.','تعريف المتغير'),
+Q('l4q11','match','اربط كل أمر بوظيفته:',[['let','تعريف متغير جديد'],['=','إسناد قيمة للمتغير'],['console.log','طباعة قيمة على الشاشة']],null,'let للتعريف، = للإسناد، console.log للطباعة.','تعريف المتغير'),
+Q('l4q12','tf','اسم المتغير يتغير كلما تغيرت قيمته.',null,false,'الاسم ثابت والمحتوى (القيمة) هو الذي يتغير.','مفهوم المتغير')],
+l5:[Q('l5q1','mcq','التفرع الشرطي يعني:',['لو حصلت حاجة اعمل كده','طباعة نص دائمًا','جمع رقمين','تعريف متغير'],0,'التفرع الشرطي: يعني لو حصلت حاجة اعمل كده.','مفهوم التفرع الشرطي'),
+Q('l5q2','mcq','أي سطر يبدأ شرط if بشكل صحيح؟',['if (science == 100){','if science == 100 {','if (science = 100) {','when (science == 100) {'],0,'الشرط يوضع بين أقواس والمقارنة بـ ==.','بنية if'),
+Q('l5q3','tf','else تُنفذ فقط عندما يكون الشرط في if غير صحيح.',null,true,'ملاحظة مهمة: else تُنفذ فقط عندما يكون شرط if غير صحيح.','شرط else'),
+Q('l5q4','mcq','مع let science = 100; في المثال الأول، ماذا يطبع البرنامج؟',['Increased allowance!','Weeding the garden','100','لا شيء'],0,'الشرط science == 100 متحقق فيُطبع Increased allowance!','مفهوم التفرع الشرطي'),
+Q('l5q5','mcq','مع let science = 80; في مثال الحالة الثانية، ماذا يطبع؟',['Weeding the garden','Increased allowance!','80','خطأ'],0,'لم يتحقق الشرط فيُنفذ else ويطبع Weeding the garden.','شرط else'),
+Q('l5q6','fill','أكمل الكلمة المفتاحية: ____ (science == 100){ ... }',['if','for','let','else'],0,'نكتب if لبدء الشرط.','بنية if'),
+Q('l5q7','order','رتّب بنية التفرع الشرطي:',['اكتب if والشرط بين أقواس ( )','اكتب كود if داخل { }','أضف else للحالة الأخرى','اكتب كود else داخل { }'],null,'if ثم كودها ثم else ثم كودها.','بنية if'),
+Q('l5q8','tf','الكود داخل if أو else يُكتب بين { } حتى لو كانت جملة واحدة.',null,true,'العمل بالداخل تُكتب بين { } حتى لو كانت جملة واحدة.','شرط else'),
+Q('l5q9','mcq','ماذا نستخدم داخل الشرط لمقارنة القيم؟',['معاملات المقارنة مثل ==','علامة الجمع +','كلمة let','كلمة log'],0,'نستخدم معاملات المقارنة مثل == داخل الشرط.','بنية if'),
+Q('l5q10','fill','لو لم يتحقق شرط if سيتم تنفيذ ____ .',['else','if','for','let'],0,'else تُنفذ عندما يكون شرط if غير صحيح.','شرط else'),
+Q('l5q11','mcq','في مثال الحالة الأولى (حصلت على 100) النتيجة هيكتب:',['Increased allowance!','Weeding the garden','science','true'],0,'لو حصلت على 100 هيكتب: Increased allowance!','مفهوم التفرع الشرطي'),
+Q('l5q12','tf','إذا تحقق شرط if فسيُنفذ كود else أيضًا.',null,false,'يُنفذ أحدهما فقط: if عند تحقق الشرط و else عند عدم تحققه.','شرط else')],
+l6:[Q('l6q1','mcq','ماذا تعني A >= B ؟',['A أكبر من أو يساوي B','A أكبر فقط','A أصغر من B','A تساوي B فقط'],0,'A >= B تعني أن A أكبر من أو يساوي B.','معاملات المقارنة'),
+Q('l6q2','mcq','مع let word = 60; وشرط if (word >= 70){pass} else {fail} ماذا يطبع؟',['fail','pass','60','خطأ'],0,'60 ليست أكبر أو تساوي 70 لذا سيتم تنفيذ else ويطبع fail.','معاملات المقارنة'),
+Q('l6q3','tf','نتيجة المقارنة 130 > 130 هي صحيحة.',null,false,'130 ليس أكبر من 130، لذلك النتيجة غير صحيحة.','معاملات المقارنة'),
+Q('l6q4','mcq','مع height = 130 وشرط if (height > 130){Can ride} else {Cannot ride} ماذا يطبع؟',['Cannot ride','Can ride','130','خطأ'],0,'130 ليس أكبر من 130 لذا سيتم تنفيذ else ويطبع Cannot ride.','معاملات المقارنة'),
+Q('l6q5','input','أكمل المعامل لمعرفة أن القيمة أصغر من أو تساوي: if (age ____ 60)',null,['<='],'العامل <= يعني أصغر أو يساوي.','معاملات المقارنة'),
+Q('l6q6','mcq','في مثال سباق الجوائز مع num = 2 ماذا يطبع؟',['Pair of tickets to the aquarium','New bicycle','2','لا شيء'],0,'القيمة 2 ليست 1 لكنها تساوي 2 فيُنفذ else if ويطبع Pair of tickets to the aquarium.','else if'),
+Q('l6q7','tf','else if تُستخدم عندما نحتاج أكثر من شرط للاختيار.',null,true,'يمكن استخدام else if لأكثر من شرط للاختيار.','else if'),
+Q('l6q8','order','رتّب منطق فحص الشروط:',['يُفحص شرط if الأول','إذا لم يتحقق ينتقل إلى else if','إذا لم يتحقق أي شرط يُنفذ else'],null,'يُفحص التسلسل بالترتيب حتى يتحقق شرط.','else if'),
+Q('l6q9','mcq','نتيجة المقارنة 15 >= 60 هي:',['false','true','خطأ برمجي','60'],0,'15 ليست أكبر من أو تساوي 60 لذلك النتيجة false.','معاملات المقارنة'),
+Q('l6q10','mcq','أي معامل نستخدم للتأكد أن القيمة تساوي قيمة أخرى؟',['==','>','<','>='],0,'تستخدم == للمقارنة من أن القيمة تساوي قيمة أخرى.','معاملات المقارنة'),
+Q('l6q11','input','إذا كانت word = 70 وشرط word >= 70 فماذا يطبع البرنامج؟',null,['pass'],'70 أكبر من أو تساوي 70 فيتحقق الشرط ويطبع pass.','معاملات المقارنة'),
+Q('l6q12','match','اربط كل معامل بمعناه:',[['==','يساوي'],['>','أكبر من'],['<','أصغر من'],['>=','أكبر من أو يساوي'],['<=','أصغر من أو يساوي']],null,'هذه أهم معاملات المقارنة الخمسة.','معاملات المقارنة')],
+l7:[Q('l7q1','mcq','متى يتحقق الشرط عند استخدام && ؟',['عندما يتحقق الشرطان معًا','عندما يتحقق شرط واحد فقط','لا يتحقق أبدًا','عندما يفشل الشرطان'],0,'&& تعني أن الشرط الأول والثاني يجب أن يتحققا معًا.','المعامل &&'),
+Q('l7q2','mcq','نتيجة: 3 >= 2 && 3500 >= 3000 هي:',['true','false','خطأ','لا يمكن الحساب'],0,'الشرطان تحققا معًا لذلك النتيجة true.','المعامل &&'),
+Q('l7q3','tf','مع || يكفي تحقق شرط واحد ليكون الشرط كله صحيحًا.',null,true,'يكفي تحقق شرط واحد فقط ليكون الشرط كله صحيحًا.','المعامل ||'),
+Q('l7q4','mcq','رمز | يُسمى في البرمجة:',['Vertical bar','Ampersand','Slash','Star'],0,'الخط العمودي | يسمى Vertical bar.','المعامل ||'),
+Q('l7q5','mcq','مع age = 15 وشرط if (age <= 12 || age >= 65) ماذا يحدث؟',['لن يتم تنفيذ الشرط ولن تظهر 30% off','ستظهر 30% off','خطأ برمجي','سيطبع 15'],0,'15 ليست أقل من أو تساوي 12 وليست أكبر من أو يساوي 65 فلا يتحقق الشرط.','المعامل ||'),
+Q('l7q6','input','أكمل الرمز: عندما يجب أن يتحقق الشرطان معًا نستخدم ____ .',null,['&&'],'&& تعني تحقق الشرطين معًا.','المعامل &&'),
+Q('l7q7','mcq','في مثال: numberOfPeople = 3 و fee = 3500 مع الشرط numberOfPeople >= 2 || fee >= 3000 ماذا سيطبع؟',['30% off','10% off','20% off','لا شيء'],0,'لأن الشروط تحققت يكفي تحقق شرط واحد مع || فستُطبع 30% off.','المعامل ||'),
+Q('l7q8','tf','رمز & يُسمى Ampersand.',null,true,'رمز & في عالم البرمجة يسمى Ampersand.','المعامل &&'),
+Q('l7q9','order','رتّب منطق فحص شرطين بـ &&:',['يُفحص الشرط الأول','يُفحص الشرط الثاني','إذا تحققا معًا يُنفذ الكود','إذا فشل أحد الشرطين لا يُنفذ الكود'],null,'مع && يجب تحقق الشرطين في نفس الوقت.','المعامل &&'),
+Q('l7q10','mcq','أي عبارة صحيحة؟',['&& يحتاج تحقق الشرطين، و|| يكفيه شرط واحد','كلاهما يحتاج الشرطين','كلاهما يكفيه شرط واحد','&& للجمع و|| للطرح'],0,'&& للشرطين معًا و|| لكفاية شرط واحد.','المعامل &&'),
+Q('l7q11','input','هل يتحقق الشرط 10 >= 2 || 1 >= 3000 ؟ اكتب true أو false.',null,['true'],'مع || يكفي تحقق شرط واحد: 10 >= 2 متحقق لذلك النتيجة true.','المعامل ||'),
+Q('l7q12','mcq','ماذا يطبع: if (numberOfPeople >= 2 && fee >= 3000) { console.log("20% off"); } مع 3 و 3500 ؟',['20% off','10% off','لا شيء','خطأ'],0,'3 >= 2 و 3500 >= 3000 تحقق الشرطان فيطبع 20% off.','المعامل &&')],
+l8:[Q('l8q1','mcq','العملية التكرارية تُستخدم لـ:',['تكرار كتابة شيء عدة مرات بكود واحد','طباعة متغير مرة واحدة','مقارنة قيمتين','تعريف دالة'],0,'العملية التكرارية أنك تريد كتابة شيء عدة مرات دون كتابته يدويًا.','مفهوم التكرار'),
+Q('l8q2','mcq','كم مرة يطبع silk الكود: for (let count = 0; count < 10; count = count + 1) { console.log("silk"); } ؟',['10 مرات','9 مرات','11 مرة','100 مرة'],0,'يبدأ من 0 ويتكرر طالما count < 10 أي 10 مرات.','حلقة for'),
+Q('l8q3','fill','حلقة for تتكرر طالما ____ صحيح.',['الشرط','المتغير','الناتج','الاقتباس'],0,'حلقة for تكرر طالما الشرط صحيح.','حلقة for'),
+Q('l8q4','mcq','كم تكرارًا في: for (let i = 0; i < 3; i++) ؟',['3','2','4','10'],0,'يتكرر 3 مرات: 0 و1 و2.','عدد التكرارات'),
+Q('l8q5','input','إذا أردت أن يتكرر الكود 3 مرات فقط اكتب الشرط: i < ____',null,['3'],'اكتب i < 3 — تغيّر عدد التكرار بمجرد تغيير الرقم فقط.','عدد التكرارات'),
+Q('l8q6','tf','الفاصلة المنقوطة (;) تفصل بين أجزاء الحلقة for.',null,true,'الفاصلة المنقوطة تعني فاصل تفاصيل في البرنامج وتوضع بين أجزاء البرنامج.','الفاصلة المنقوطة'),
+Q('l8q7','order','رتّب أجزاء حلقة for:',['قيمة المتغير تُبدأ من 0','شرط التكرار','تحديث المتغير','الكود المطلوب تكراره داخل { }'],null,'الترتيب: البداية ثم الشرط ثم التحديث ثم الكود.','حلقة for'),
+Q('l8q8','mcq','ماذا يعني count = count + 1 داخل الحلقة؟',['تحديث المتغير بإضافة 1 في كل مرة','شرط التكرار','تعريف متغير جديد','طباعة قيمة'],0,'هو تحديث المتغير: أضف 1 لقيمة المتغير في كل مرة.','حلقة for'),
+Q('l8q9','tf','الكود المطلوب تكراره داخل حلقة for يوضع بين { }.',null,true,'الكود المتكرر يوضع داخل الأقواس { }.','حلقة for'),
+Q('l8q10','mcq','ما الطريقة الأسهل لكتابة إضافة 1 في الحلقة؟',['i++','i = 0','i < 10','count'],0,'i++ طريقة أسهل للكتابة والفهم تعني أضف 1.','الطريقة الأسهل i++'),
+Q('l8q11','input','كم مرة يطبع كلمة genius الكود: for (let i = 0; i < 5; i++) { console.log("genius"); } ؟',null,['5'],'يتكرر 5 مرات من 0 إلى 4.','عدد التكرارات'),
+Q('l8q12','mcq','ماذا يحدث إذا نسينا تحديث المتغير في الحلقة؟',['قد لا تتوقف الحلقة أبدًا','تتوقف فورًا','لا يعمل console.log','تتكرر مرة واحدة'],0,'بدون تحديث يبقى الشرط صحيحًا دائمًا فلا تتوقف الحلقة.','حلقة for')],
+l9:[Q('l9q1','mcq','ما ناتج: console.log(Math.round(9.6)); ؟',['10','9','9.6','0'],0,'Math.round تقرب الرقم إلى أقرب عدد صحيح فتصبح 10.','Math.round'),
+Q('l9q2','mcq','ما ناتج: console.log(Math.max(5,10,50)); ؟',['50','5','10','65'],0,'Math.max تخبرك بالقيمة العظمى بين الأرقام.','Math.max'),
+Q('l9q3','mcq','ما ناتج: console.log(Math.min(5,10,50)); ؟',['5','10','50','65'],0,'Math.min تخبرك بالقيمة الصغرى بين الأرقام.','Math.min'),
+Q('l9q4','tf','كتابة math بحرف صغير تعمل بشكل صحيح.',null,false,'احذر! حرف M لازم يُكتب كبيرًا وإلا حدث خطأ.','حرف M الكبير'),
+Q('l9q5','input','ما ناتج: console.log(Math.max(3,7)); ؟',null,['7'],'القيمة العظمى بين 3 و7 هي 7.','Math.max'),
+Q('l9q6','mcq','بأي كلمة نبدأ دائمًا عند إنشاء دالة خاصة؟',['function','let','if','return'],0,'يجب أن تبدأ دائمًا بكلمة function لتعرف أنك هتنشئ دالة.','إنشاء دالة'),
+Q('l9q7','mcq','ماذا تفعل return داخل الدالة؟',['ترجع قيمة النتيجة','تطبع على الشاشة مباشرة','تعرف متغيرًا جديدًا','تكرر الكود'],0,'return تقوم بإرجاع قيمة النتيجة من الدالة.','إنشاء دالة'),
+Q('l9q8','order','رتّب خطوات إنشاء دالة خاصة:',['حدد اسم الدالة والوسيطات','حدد الإجراء الذي ستقوم به الدالة','أرجع قيمة النتيجة بـ return'],null,'ثلاث خطوات: الاسم والوسيطات، الإجراء، الإرجاع.','إنشاء دالة'),
+Q('l9q9','mcq','في مثال split3(2800) كم سيكون نصيب كل شخص تقريبًا؟',['933','2800','3','930'],0,'2800 ÷ 3 = 933 فنصيب كل شخص 933.','مثال تطبيقي split3'),
+Q('l9q10','tf','يمكن استخدام المسافات في أسماء الدوال.',null,false,'في أسماء الدوال أو المتغيرات لا يمكن استخدام المسافات.','إنشاء دالة'),
+Q('l9q11','input','أكمل: function split3(total) { let result = total / ___; return result; } لقسمة الحساب على ثلاثة أشخاص.',null,['3'],'نقسم على 3 (عدد الأشخاص).','مثال تطبيقي split3'),
+Q('l9q12','mcq','ماذا تسمى القيم التي تُمرر للدالة بين أقواس اسمها؟',['وسيطات (parameters)','تعليقات','حلقات','أنواع'],0,'هي الوسيطات مثل num1 و num2 في min2.','إنشاء دالة')],
+l10:[Q('l10q1','mcq','أي سطر يضع قيمة نصية في المتغير؟',['let fee = "1000 codycoins";','let fee = 1000;','let fee = 1000 + 5;','fee = 1000;'],0,'النص بين اقتباس مزدوج يعتبر قيمة نصية.','القيمة النصية'),
+Q('l10q2','tf','الأرقام تُكتب بدون علامات اقتباس.',null,true,'ملخص سريع: الأرقام بدون اقتباس.','القيمة النصية'),
+Q('l10q3','mcq','أي نص بين علامتي اقتباس " " يعتبر:',['نصًا وليس رقمًا','رقمًا','دالة','خطأ'],0,'أي نص بين " " يعتبر نص وليس رقم.','القيمة النصية'),
+Q('l10q4','input','أكمل: النصوص نكتبها بين علامتي ______ المزدوجة.',null,['اقتباس','الاقتباس','" "','quotes'],'النصوص بين اقتباس مزدوج.','القيمة النصية'),
+Q('l10q5','mcq','في المثال الثاني: let fee = "1000 codycoins"; هل يتحقق الشرط fee == "1000 codycoins" ؟',['نعم لأنهما نفس النص','لا لأن fee رقم','لا أبدًا','نعم لأن fee رقم'],0,'المقارنة بين نصين متطابقين تتحقق.','القيمة النصية'),
+Q('l10q6','tf','"50" و 50 لهما نفس النوع.',null,false,'"50" نص و 50 رقم، النوعان مختلفان.','القيمة النصية'),
+Q('l10q7','order','رتّب قواعد الكتابة الصحيحة:',['الأرقام تُكتب بدون اقتباس','النصوص تُكتب بين اقتباس مزدوج','استخدم الاقتباس دائمًا للنصوص لتفادي أخطاء المقارنة'],null,'ملخص سريع لأهم القواعد.','القيمة النصية'),
+Q('l10q8','mcq','مع let fee = 1000; أي مقارنة تتحقق؟',['fee == 1000','fee == "1000 codycoins"','fee == "codycoins"','fee == 999'],0,'fee رقم 1000 فتتحقق المقارنة مع الرقم 1000.','القيمة النصية'),
+Q('l10q9','input','هل يجعل السطر let x = "5"; المتغير x رقمًا؟ اكتب نعم أو لا.',null,['لا','no'],'"5" بين اقتباس تعتبر نصًا وليس رقمًا.','القيمة النصية'),
+Q('l10q10','mcq','لماذا نستخدم الاقتباس المزدوج للنصوص دائمًا؟',['لتجنب الأخطاء في المقارنات','لتسريع الإنترنت','لتغيير لون النص','لا فائدة منها'],0,'نصيحة: كلما استخدمت الاقتباس المزدوج للنصوص تجنبت الأخطاء في المقارنات.','القيمة النصية'),
+Q('l10q11','tf','أي نص بين علامتي اقتباس يعتبر قيمة نصية.',null,true,'هذه قاعدة أساسية في الأنواع.','القيمة النصية'),
+Q('l10q12','mcq','ماذا يطبع المثالان (1) و(2) عندما يتحقق الشرط فيهما؟',['50 codycoins off','1000 codycoins','fee','لا شيء'],0,'كلا المثالين يطبع 50 codycoins off عند تحقق الشرط.','القيمة النصية')],
+l11:[Q('l11q1','mcq','ماذا يطبع: console.log("1+1"); ؟',['1+1','2','11','خطأ'],0,'بين الاقتباس تطبع السلسلة النصية كما هي: 1+1.','الفرق بين النص والرقم'),
+Q('l11q2','mcq','ماذا يطبع: console.log(1+1); ؟',['2','1+1','11','خطأ'],0,'بدون اقتباس يطبع نتيجة حساب عددي: 2.','الفرق بين النص والرقم'),
+Q('l11q3','mcq','الأمر typeof يُستخدم لـ:',['معرفة نوع البيانات الموجودة داخل الأقواس','طباعة نص','جمع رقمين','تكرار كود'],0,'typeof يعيد نوع البيانات الموجودة داخل الأقواس.','typeof'),
+Q('l11q4','input','ما ناتج: console.log(typeof 100); ؟',null,['number'],'number تعني أنها قيمة عدّية.','typeof'),
+Q('l11q5','mcq','ماذا يعيد typeof "Hello" ؟',['string','number','boolean','لا شيء'],0,'String تعني أنها سلسلة نصية.','typeof'),
+Q('l11q6','tf','نتيجة 1 == "1" هي true.',null,true,'== تقارن القيمة فالنتيجة true.','مقارنة القيم والأنواع'),
+Q('l11q7','mcq','نتيجة 1 === "1" هي:',['false','true','خطأ','1'],0,'=== أكثر صرامة: القيمة والنوع مختلفان فالنتيجة false.','مقارنة القيم والأنواع'),
+Q('l11q8','mcq','ما الفرق بين == و === ؟',['== تقارن القيمة، و=== تقارن القيمة والنوع معًا','== تقارن النوع فقط','لا يوجد فرق','=== للجمع'],0,'== تقارن القيمة بينما === تقارن القيمة والنوع معًا.','مقارنة القيم والأنواع'),
+Q('l11q9','order','رتّب خطوات معرفة نوع قيمة:',['اكتب console.log','اكتب typeof','ضع القيمة داخل الأقواس','اقرأ الناتج (number أو string)'],null,'typeof يخبرك بنوع البيانات.','typeof'),
+Q('l11q10','tf','كلمة String تعني سلسلة نصية.',null,true,'String تعني أنها سلسلة نصية.','typeof'),
+Q('l11q11','input','ما ناتج: console.log(typeof "100"); ؟',null,['string'],'القيمة بين اقتباس فنوعها string رغم أنها تبدو رقمًا.','typeof'),
+Q('l11q12','mcq','فهم الفرق بين السلاسل النصية والقيم العددية مهم لـ:',['تجنب الأخطاء في كتابة البرامج','تغيير خلفية الشاشة','تسريع الطابعة','لا شيء'],0,'فهم الفرق مهم جدًا في كتابة البرامج وتجنب الأخطاء.','الفرق بين النص والرقم')],
+l12:[Q('l12q1','mcq','ما ناتج: console.log(Number("100")); ؟',['100','"100"','NaN','خطأ يوقف البرنامج'],0,'Number تحول النص "100" إلى قيمة عددية 100.','التحويل إلى رقم'),
+Q('l12q2','mcq','ما ناتج: console.log(Number("Hello")); ؟',['NaN','0','Hello','خطأ يوقف البرنامج'],0,'لا يمكن تحويل Hello إلى رقم فتظهر NaN.','التحويل إلى رقم'),
+Q('l12q3','input','NaN اختصار لعبارة إنجليزية، اكتبها.',null,['Not Number','not number','notnumber'],'NaN اختصار لـ Not Number.','التحويل إلى رقم'),
+Q('l12q4','tf','الدالة Number تحول النص الرقمي إلى قيمة عددية.',null,true,'هذا هو دور Number في التحويل بين الأنواع.','التحويل إلى رقم'),
+Q('l12q5','mcq','ماذا يحدث للنصوص التي ليست أرقامًا عند تحويلها بـ Number؟',['تصبح NaN','تصبح 0','تُحذف من الكود','تتكرر مرتين'],0,'النصوص غير الرقمية مثل "Hello" تصبح NaN.','التحويل إلى رقم'),
+Q('l12q6','input','ما ناتج: Number("500") ؟',null,['500'],'النص الرقمي يتحول إلى الرقم 500.','التحويل إلى رقم'),
+Q('l12q7','mcq','NaN تعني:',['قيمة خاصة تعبر عن عدم إمكانية التحويل إلى رقم','الرقم صفر','رقم سالب جدًا','خطأ يغلق البرنامج'],0,'NaN قيمة خاصة تُستخدم للتعبير عن عدم إمكانية التحويل إلى رقم.','التحويل إلى رقم'),
+Q('l12q8','tf','النص "100" بعد تحويله بـ Number يصبح رقمًا فعليًا.',null,true,'عندما نحول نصًا يبدو أنه رقم مثل "100" يتحول إلى رقم فعلي.','التحويل إلى رقم'),
+Q('l12q9','order','رتّب خطوات التحويل بين الأنواع:',['حدد النص المراد تحويله','ضعه داخل Number( )','اطبع الناتج بـ console.log','اقرأ الناتج: رقم أو NaN'],null,'خطوات عملية التحويل.','التحويل إلى رقم'),
+Q('l12q10','mcq','أي نص يتحول بنجاح إلى رقم؟',['Number("36")','Number("silk")','Number("deer")','Number("genius")'],0,'"36" يبدو رقمًا فيتحول، والبقية تصبح NaN.','التحويل إلى رقم'),
+Q('l12q11','input','ما ناتج: Number("genius") ؟ اكتب الناتج كما يظهر.',null,['nan'],'النص ليس رقمًا فتظهر NaN.','التحويل إلى رقم'),
+Q('l12q12','tf','Number("Hello") يوقف البرنامج بخطأ.',null,false,'لا يتوقف البرنامج بل تظهر قيمة NaN.','التحويل إلى رقم')],
+l13:[Q('l13q1','mcq','المصفوفة تشبه:',['مجموعة صناديق متشابهة معًا','صندوقًا واحدًا فقط','دالة','حلقة تكرار'],0,'المتغير صندوق يحمل قيمة، والمصفوفة مجموعة صناديق متشابهة معًا.','مفهوم المصفوفة'),
+Q('l13q2','mcq','أي سطر يعرّف مصفوفة بشكل صحيح؟',['let tempList = [36, 36, 26];','let tempList = (36, 36);','tempList = {36};','let [tempList] = 36;'],0,'المصفوفة تُكتب بين [ ] والعناصر مفصولة بفواصل.','تعريف المصفوفة'),
+Q('l13q3','input','في المصفوفة [36, 36, 26, 27, 28, 33, 36] ماذا يعيد tempList[4] ؟',null,['28'],'الفهرس [4] هو اليوم الخامس لأن العد يبدأ من 0 والقيمة 28.','الفهرس'),
+Q('l13q4','tf','فهرس المصفوفة يبدأ من 0.',null,true,'فهرس المصفوفة يبدأ من 0 وليس من 1.','الفهرس'),
+Q('l13q5','mcq','ماذا يعيد tempList[0] ؟',['أول عنصر','ثاني عنصر','آخر عنصر','طول المصفوفة'],0,'الفهرس 0 يعيد أول عنصر في المصفوفة.','الفهرس'),
+Q('l13q6','mcq','لماذا نستخدم المصفوفة بدلًا من متغيرات كثيرة؟',['لكتابة بيانات كثيرة بشكل مرتب وسهولة الوصول إليها','لتلوين الشاشة','لأن المتغيرات ممنوعة','لتقليل سرعة البرنامج'],0,'المصفوفة تساعدنا نكتب بيانات كثيرة بشكل مرتب ونسهل الوصول إليها.','مفهوم المصفوفة'),
+Q('l13q7','input','في المصفوفة [10, 20, 30] ماذا يعيد arr[1] ؟',null,['20'],'الفهرس 1 يعيد العنصر الثاني وهو 20.','الفهرس'),
+Q('l13q8','order','رتّب عناصر المصفوفة [36, 26, 27] حسب فهارسها:',['العنصر 36 له الفهرس 0','العنصر 26 له الفهرس 1','العنصر 27 له الفهرس 2'],null,'الفهرسة تبدأ من 0 بالترتيب.','الفهرس'),
+Q('l13q9','tf','tempList[4] يعني اليوم الرابع من الأسبوع.',null,false,'الفهرس 4 يعني اليوم الخامس لأن العد يبدأ من 0.','الفهرس'),
+Q('l13q10','mcq','كيف تصل لدرجة اليوم السادس (القيمة 33) في tempList = [36, 36, 26, 27, 28, 33, 36] ؟',['tempList[5]','tempList[6]','tempList[33]','temp(6)'],0,'اليوم السادس فهرسه 5 لأن العد يبدأ من 0.','الفهرس'),
+Q('l13q11','fill','المصفوفة تُكتب بين علامتي ____ والعناصر مفصولة بفواصل.',['[ ]','( )','{ }','" "'],0,'المصفوفة تُكتب بين قوسين مربعين [ ].','تعريف المصفوفة'),
+Q('l13q12','mcq','المصفوفة تخزن بيانات من:',['نفس النوع','أنواع مختلفة فقط','نصوص فقط دون أرقام','أرقام فقط دون نصوص'],0,'المصفوفة تخزن بيانات من نفس النوع وتصل لأي قيمة عن طريق فهرسها.','مفهوم المصفوفة')],
+l14:[Q('l14q1','mcq','ماذا ترجع خاصية length ؟',['عدد عناصر المصفوفة','آخر فهرس','مجموع القيم','أول عنصر'],0,'length ترجع عدد عناصر المصفوفة دائمًا.','خاصية length'),
+Q('l14q2','input','في المصفوفة [36, 36, 26, 27, 28, 33, 36, 30, 28, 29] ماذا يعيد tempList.length ؟',null,['10'],'عدد العناصر 10.','خاصية length'),
+Q('l14q3','mcq','لماذا نبدأ total = 0 قبل حلقة الجمع؟',['لنجمع القيم فوقه داخل الحلقة','لأن length تتطلبه','لأن for تمنع غيره','لا داعي له'],0,'نبدأ total = 0 ثم نجمع عليه كل قيمة داخل الحلقة.','جمع العناصر'),
+Q('l14q4','tf','نستخدم total = total + tempList[i]; داخل الحلقة لجمع عناصر المصفوفة.',null,true,'هذه هي صيغة الجمع داخل الحلقة.','جمع العناصر'),
+Q('l14q5','mcq','ما مجموع درجات الحرارة في مثال الأسبوع؟',['222','22','31','100'],0,'مجموع درجات الحرارة للأسبوع = 222.','جمع العناصر'),
+Q('l14q6','input','المتوسط = المجموع ÷ عدد الأيام = 222 ÷ 7 = ؟ (اكتب الرقم)',null,['31.71','31.714','31'],'المتوسط ≈ 31.71.','حساب المتوسط'),
+Q('l14q7','order','رتّب خطوات جمع عناصر المصفوفة:',['أسند المصفوفة إلى متغير','ابدأ متغير total = 0','كرر بالحلقة واجمع total = total + tempList[i]','اطبع total'],null,'هذه خطوات المثال الأول.','جمع العناصر'),
+Q('l14q8','mcq','ما آخر فهرس في مصفوفة طولها 7 عناصر؟',['6','7','0','5'],0,'الفهرس يبدأ من 0 لذا آخر فهرس = 6.','خاصية length'),
+Q('l14q9','tf','length ترجع عدد العناصر وليس آخر فهرس.',null,true,'تذكر: length ترجع عدد العناصر وليس آخر فهرس.','خاصية length'),
+Q('l14q10','mcq','في الحلقة for(let i = 0; i < 7; i++) كم عنصرًا تمر عليها؟',['7','6','8','10'],0,'من الفهرس 0 إلى 6 أي 7 عناصر.','جمع العناصر'),
+Q('l14q11','input','ماذا يعيد arr.length للمصفوفة [5, 10, 15] ؟',null,['3'],'عدد العناصر 3.','خاصية length'),
+Q('l14q12','mcq','لحساب متوسط الدرجات نستعمل:',['المجموع ÷ عدد الأيام','المجموع × عدد الأيام','length فقط','أول عنصر'],0,'لو عايز نقسم المجموع على عدد الأيام عشان نعرف المتوسط.','حساب المتوسط')],
+final:[Q('fq1','order','رتّب رحلة بناء برنامج بسيط:',['اكتب الكود في المحرر النصي','نفّذ العمليات الحسابية والمتغيرات','استخدم الشروط والتكرار عند الحاجة','اطبع النتيجة في وحدة التحكم'],null,'من الكتابة إلى الطباعة: هذه رحلة أي برنامج.','بناء البرامج'),
+Q('fq2','match','اربط كل مفهوم بما يدل عليه:',[['let','متغير'],['if','شرط'],['for','تكرار'],['function','دالة'],['[ ]','مصفوفة']],null,'أهم الكلمات المفتاحية في الترم الأول.','مفاهيم عامة'),
+Q('fq3','input','ما ناتج: console.log(Math.max(2, 9, 4)); ؟',null,['9'],'Math.max تعيد القيمة العظمى.','Math.max'),
+Q('fq4','mcq','أفضل نصيحة من الكتاب للنجاح في البرمجة:',['مارس كتابة الأكواد يوميًا حتى لو لوقت قصير','احفظ الكود دون فهم','انتظر حتى يشرح لك أحد كل شيء','جرب الأمثلة مرة واحدة في العام'],0,'من نصائح الكتاب: مارس كتابة الأكواد يوميًا حتى لو لوقت قصير.','نصائح التعلم'),
+Q('fq5','tf','العمليات الحسابية الأربع هي: الجمع والطرح والضرب والقسمة.',null,true,'+ و - و * و / هي العمليات الأربع.','المعاملات الحسابية'),
+Q('fq6','fill','لتحويل النص إلى قيمة عددية نستخدم الأمر ____ .',['Number','String','round','let'],0,'Number("100") تحول النص إلى قيمة عددية.','التحويل إلى رقم')]};
+
+const TYPELAB={mcq:'اختيار متعدد',tf:'صح أو خطأ',fill:'أكمل',input:'إدخال إجابة',order:'ترتيب الخطوات',match:'سحب وإفلات'};
+const FINAL_UNLOCK=7;
+
+/* =============== قاعدة البيانات (تخزين دائم منظم) =============== */
+const DBKEY='qur_db_v1',SESKEY='qur_ses_v1';
+let DB=null,ME=null,adminOK=false;
+function loadDB(){
+ try{DB=JSON.parse(localStorage.getItem(DBKEY))}catch(e){DB=null}
+ if(!DB||!DB.students){
+  DB={v:1,students:[],settings:{pin:'1234',certPct:70},edited:{},deleted:[],custom:[],
+   demo:[{name:'سلمى محمد',xp:1420,avg:95,done:13},{name:'يوسف أحمد',xp:1180,avg:91,done:12},{name:'ليلى خالد',xp:960,avg:88,done:10},{name:'عمر حسن',xp:730,avg:84,done:9},{name:'مريم سعيد',xp:540,avg:79,done:7},{name:'كريم طارق',xp:380,avg:73,done:5},{name:'نور الدين',xp:210,avg:68,done:3}]};
+  saveDB();
+ }
+}
+function saveDB(){try{localStorage.setItem(DBKEY,JSON.stringify(DB))}catch(e){toast('تعذر الحفظ في قاعدة البيانات المحلية')}}
+function newStudent(name){
+ const s={id:'s'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),name,created:Date.now(),xp:0,badges:[],lessons:{},exams:[],stats:{},certs:[]};
+ DB.students.push(s);saveDB();return s;
+}
+const BADGES=[
+{id:'first_read',icon:'🚀',name:'أول خطوة',desc:'أكملت أول شرح درس'},
+{id:'reader',icon:'📚',name:'قارئ نهم',desc:'أكملت 5 شروح دروس'},
+{id:'first_exam',icon:'🎯',name:'قناص الأسئلة',desc:'أكملت أول اختبار'},
+{id:'perfect',icon:'💯',name:'الدرجة الكاملة',desc:'حصلت على 100% في أي اختبار'},
+{id:'xp200',icon:'⚡',name:'سريع التعلم',desc:'وصلت إلى 200 نقطة'},
+{id:'xp700',icon:'🛡️',name:'محترف صاعد',desc:'وصلت إلى 700 نقطة'},
+{id:'exams10',icon:'🔥',name:'لا يتوقف',desc:'أكملت 10 اختبارات'},
+{id:'final_pass',icon:'🏆',name:'بطل الترم',desc:'اجتزت الاختبار النهائي'}];
+const LEVELS=[{n:'مبتدئ',i:'🌱',min:0},{n:'متعلم',i:'📘',min:150},{n:'متقدم',i:'⚡',min:350},{n:'محترف البرمجة',i:'🛡️',min:700},{n:'بطل البرمجة',i:'👑',min:1200}];
+function levelOf(xp){let l=LEVELS[0];for(const L of LEVELS)if(xp>=L.min)l=L;return l}
+function nextLevel(xp){return LEVELS.find(L=>L.min>xp)||null}
+const MOTIV=['أحسنت! كل سطر تكتبه اليوم لبنة تبني مهاراتك 🌟','لا تخف من الأخطاء، فهي جزء طبيعي من التعلم وأهم طرق الوصول إلى الحل!','استمر في التجربة، اسأل، ابحث، وطور نفسك يومًا بعد يوم.','المستقبل سيكون لمن يجمع بين العلم والعمل والإبداع!','مارس كتابة الأكواد يوميًا حتى لو لوقت قصير — أنت تبني مستقبلك غدًا!','التجربة هي أفضل معلم — جرب تعديلات مختلفة وراقب النتيجة!'];
+
+/* =============== دوال مساعدة على الطالب =============== */
+function recordStat(qid,ok){const st=ME.stats[qid]||(ME.stats[qid]={r:0,w:0});ok?st.r++:st.w++}
+function addXP(n){if(n<=0)return;const b=levelOf(ME.xp).n;ME.xp+=n;const a=levelOf(ME.xp);if(a.n!==b)setTimeout(()=>toast(`🎊 مبروك! ترقية إلى مستوى «${a.n}» ${a.i}`),600);checkBadges();saveDB()}
+function readCount(){return LESSONS.filter(L=>ME.lessons[L.id]&&ME.lessons[L.id].read).length}
+function examCount(){return ME.exams.length}
+function avgPct(){if(!ME.exams.length)return 0;return Math.round(ME.exams.reduce((a,e)=>a+e.pct,0)/ME.exams.length)}
+function doneLessons(){return LESSONS.filter(L=>ME.lessons[L.id]&&ME.lessons[L.id].exam!=null).length}
+function checkBadges(){
+ const g=id=>{if(!ME.badges.includes(id)){ME.badges.push(id);const b=BADGES.find(x=>x.id===id);setTimeout(()=>toast(`${b.icon} شارة جديدة: ${b.name}!`),900)}};
+ if(readCount()>=1)g('first_read');
+ if(readCount()>=5)g('reader');
+ if(ME.exams.length>=1)g('first_exam');
+ if(ME.exams.some(e=>e.pct===100))g('perfect');
+ if(ME.xp>=200)g('xp200');
+ if(ME.xp>=700)g('xp700');
+ if(ME.exams.length>=10)g('exams10');
+ if(ME.certs.length>=1)g('final_pass');
+}
+function getLessonQs(lid){
+ let base=(QUESTIONS[lid]||[]).filter(q=>!DB.deleted.includes(q.id)).map(q=>DB.edited[q.id]?{...q,...DB.edited[q.id]}:q);
+ return base.concat(DB.custom.filter(q=>q.lid===lid));
+}
+function findQ(qid){
+ for(const L of LESSONS){const q=getLessonQs(L.id).find(x=>x.id===qid);if(q)return q}
+ const q=getLessonQs('final').find(x=>x.id===qid);if(q)return q;
+ return DB.custom.find(x=>x.id===qid)||null;
+}
+
+/* =============== التوجيه والعرض =============== */
+let VIEW={name:'welcome'};
+function go(name,data={}){VIEW={name,...(typeof data==='string'?{lid:data}:data)};window.scrollTo({top:0,behavior:'smooth'});render()}
+function render(){renderTopbar();renderBottom();renderFooter();
+ const app=$('#app');
+ if(VIEW.name==='welcome')renderWelcome(app);
+ else if(!ME){VIEW={name:'welcome'};renderWelcome(app);return}
+ else if(VIEW.name==='home')renderHome(app);
+ else if(VIEW.name==='lesson')renderLesson(app,VIEW.lid);
+ else if(VIEW.name==='quiz')renderQuiz(app);
+ else if(VIEW.name==='results')renderResults(app);
+ else if(VIEW.name==='board')renderBoard(app);
+ else if(VIEW.name==='certs')renderCerts(app);
+ else if(VIEW.name==='admin')renderAdmin(app);
+ else renderHome(app);
+}
+function renderTopbar(){
+ const t=$('#topbar');
+ const brand=`<button class="brand" onclick="go('home')"><span class="logo">QUR</span><span class="btxt"><b>البرمجة والذكاء الاصطناعي</b><small>أول ثانوي | الترم الأول | المستوى الأول</small></span></button>`;
+ if(!ME){t.innerHTML=`<div class="tbar">${brand}</div>`;return}
+ const lv=levelOf(ME.xp);
+ const on=v=>VIEW.name===v?'on':'';
+ t.innerHTML=`<div class="tbar">${brand}
+  <nav class="navlinks">
+   <button class="nl ${on('home')}" onclick="go('home')">${ic('home')}الرئيسية</button>
+   <button class="nl ${on('board')}" onclick="go('board')">${ic('trophy')}المتصدرون</button>
+   <button class="nl ${on('certs')}" onclick="go('certs')">${ic('award')}شهاداتي</button>
+   <button class="nl ${on('admin')}" onclick="go('admin')">${ic('shield')}لوحة المعلم</button>
+  </nav>
+  <div class="tchips">
+   <button class="chip pur" onclick="openBadges()" title="النقاط والإنجازات">${ic('star')} ${ME.xp} XP</button>
+   <span class="chip blue">${lv.i} ${lv.n}</span>
+   <span class="chip who">${esc(ME.name)}</span>
+  </div></div>`;
+}
+function renderBottom(){
+ const b=$('#bottomnav');
+ if(!ME){b.innerHTML='';return}
+ const on=v=>VIEW.name===v?'on':'';
+ b.innerHTML=`<div class="bnin">
+  <button class="bn ${on('home')}" onclick="go('home')">${ic('home')}<span>الرئيسية</span></button>
+  <button class="bn ${on('board')}" onclick="go('board')">${ic('trophy')}<span>المتصدرون</span></button>
+  <button class="bn ${on('certs')}" onclick="go('certs')">${ic('award')}<span>شهاداتي</span></button>
+  <button class="bn ${on('admin')}" onclick="go('admin')">${ic('shield')}<span>المعلم</span></button>
+ </div>`;
+}
+function renderFooter(){
+ $('#appf').innerHTML=`إعداد المعلم: <b>محمد البربري</b> — معلم البرمجة والذكاء الاصطناعي &nbsp;•&nbsp; <b dir="ltr">01064202312</b> &nbsp;•&nbsp; منصة <b>QUR</b> — تعلم • لغز • أنشئ`;
+}
+
+/* =============== الترحيب =============== */
+function renderWelcome(app){
+ const ses=localStorage.getItem(SESKEY);
+ const old=ses?DB.students.find(s=>s.id===ses):null;
+ app.innerHTML=`<div class="wrap fade">
+ <div class="card hero pad" style="max-width:760px;margin:auto">
+  <div class="row sp">
+   <span class="en">PROGRAMMING &amp; ARTIFICIAL INTELLIGENCE</span>
+   <span class="chip" style="background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25);color:#fff">أول ثانوي | الترم الأول</span>
+  </div>
+  <div class="codes">let code = "success";<br>learn(); improve(); repeat();</div>
+  <h1 class="big">البرمجة<br>والذكاء الاصطناعي</h1>
+  <p class="tag">تعلم البرمجة اليوم … صنع المستقبل غدًا</p>
+  <div class="grid4" style="margin:14px 0">
+   <div class="feature">📖 شرح مبسط ومفهوم</div><div class="feature">💡 أمثلة تطبيقية متعة</div><div class="feature">📝 تدريبات وملخصات</div><div class="feature">🧠 أفكار ذكية.. طلبات أكتر</div>
+  </div>
+  <div class="tname">
+   <div class="tavatar">م</div>
+   <div style="flex:1"><b style="font-family:Cairo">محمد البربري</b><br><small style="color:#cdd8ff">معلم البرمجة والذكاء الاصطناعي</small></div>
+   <span class="phonechip">📞 <span dir="ltr">01064202312</span></span>
+  </div>
+  ${old?`<div class="card" style="margin-top:16px;padding:16px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff">
+   <b>مرحبًا بعودتك، ${esc(old.name)} ${levelOf(old.xp).i}</b>
+   <p class="small" style="color:#cdd8ff">نقاطك: ${old.xp} XP • المستوى: ${levelOf(old.xp).n} • تقدمك محفوظ دائمًا</p>
+   <div class="row"><button class="btn pri" onclick="resume('${old.id}')">متابعة التعلم ${ic('play')}</button>
+   <button class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)" onclick="newStudentMode()">الدخول كطالب جديد</button></div>
+  </div>`:''}
+  <div class="card" style="margin-top:16px;padding:18px" id="startbox">
+   <h3 style="margin-bottom:6px">${old?'دخول طالب جديد':'أهلًا بك في منصة QUR'}</h3>
+   <p class="small mut" style="margin-bottom:12px">اكتب اسمك ليتم حفظ تقدمك ونقاطك وشهادتك بشكل دائم.</p>
+   <input id="sname" class="inp" maxlength="30" placeholder="اسم الطالب…" onkeydown="if(event.key==='Enter')startLearn()">
+   <button class="btn pri block" style="margin-top:12px" onclick="startLearn()">ابدأ التعلم ${ic('play')}</button>
+  </div>
+ </div></div>`;
+}
+function resume(id){const s=DB.students.find(x=>x.id===id);if(s){localStorage.setItem(SESKEY,id);ME=s;go('home');toast(`أهلًا بعودتك ${esc(s.name)} 👋`)}}
+function newStudentMode(){localStorage.removeItem(SESKEY);ME=null;render()}
+function startLearn(){
+ const n=$('#sname').value.trim();
+ if(n.length<2){toast('من فضلك اكتب اسمك أولًا (حرفان على الأقل)');return}
+ ME=newStudent(n);localStorage.setItem(SESKEY,ME.id);checkBadges();saveDB();
+ go('home');toast(`أهلًا بك يا ${esc(n)}! رحلتك نحو الإبداع تبدأ الآن 🚀`);
+}
+
+/* =============== الرئيسية =============== */
+function openBadges(){
+ openModal(`<h3>🏅 الشارات والإنجازات</h3><p class="small mut">اكسب نقاط XP بالتعلم والتدريب لترتقي مستواك وتجمع الشارات.</p>
+ <div class="bgrid">${BADGES.map(b=>`<div class="badge ${ME.badges.includes(b.id)?'got':''}"><div class="bico">${b.icon}</div><b>${b.name}</b><small>${b.desc}</small></div>`).join('')}</div>
+ <button class="btn ghost block" style="margin-top:14px" onclick="closeModal()">إغلاق</button>`);
+}
+function statusChip(v,lab){return `<span class="st ${v?'done':''}">${v?'✔ ':''}${lab}</span>`}
+function renderHome(app){
+ const lv=levelOf(ME.xp),nl=nextLevel(ME.xp);
+ const parts=LESSONS.length*3;
+ let done=0;LESSONS.forEach(L=>{const s=ME.lessons[L.id];if(s){done+=(s.read?1:0)+(s.practice!=null?1:0)+(s.exam!=null?1:0)}});
+ const cpct=Math.round(done/parts*100);
+ const next=LESSONS.find(L=>!(ME.lessons[L.id]&&ME.lessons[L.id].exam));
+ const unlocked=doneLessons()>=FINAL_UNLOCK;
+ const bars=nl?Math.min(100,Math.round((ME.xp-lv.min)/(nl.min-lv.min)*100)):100;
+ app.innerHTML=`<div class="wrap fade">
+ <div class="card pad" style="background:linear-gradient(135deg,#fff,#f6f5ff)">
+  <div class="row sp">
+   <div><h2>أهلًا بك، ${esc(ME.name)} ${lv.i}</h2><p class="small mut">مقرر: البرمجة والذكاء الاصطناعي — الترم الأول • معلم المقرر: محمد البربري</p></div>
+   <span class="chip pur">${lv.i} ${lv.n}</span>
+  </div>
+  <div class="row" style="margin-top:10px"><div class="pbar" style="flex:1;min-width:180px"><div class="pfill" style="width:${bars}%"></div></div>
+  <span class="small mut">${ME.xp} XP ${nl?`• تبقى ${nl.min-ME.xp} XP لمستوى «${nl.n}»`:'• أعلى مستوى!'}</span></div>
+  <div class="pbar" style="margin-top:10px"><div class="pfill" style="width:${cpct}%"></div></div>
+  <p class="small mut" style="margin-top:4px">تقدمك في المقرر: ${cpct}% (${done} من ${parts} نشاطًا)</p>
+ </div>
+ <div class="grid4" style="margin-top:14px">
+  <div class="stat"><b>${ME.xp}</b><small>نقطة XP</small></div>
+  <div class="stat"><b>${doneLessons()}/${LESSONS.length}</b><small>دروس مكتملة</small></div>
+  <div class="stat"><b>${avgPct()||'—'}${avgPct()?'%':''}</b><small>متوسط الدرجات</small></div>
+  <div class="stat"><b>${ME.badges.length}/${BADGES.length}</b><small>شارات</small></div>
+ </div>
+ ${next?`<div class="card pad" style="margin-top:14px;background:linear-gradient(135deg,#eef4ff,#f4efff);border:1.5px solid #d5e2ff">
+  <div class="row sp"><div><b>تابع من حيث توقفت:</b> ${LIC(next)} ${esc(next.title)}</div>
+  <button class="btn pri" onclick="go('lesson','${next.id}')">ادخل الدرس ${ic('play')}</button></div></div>`:
+  `<div class="card pad" style="margin-top:14px;background:linear-gradient(135deg,#e9f9f0,#f4efff)"><b>🎉 أكملت جميع دروس المقرر!</b> <p class="small mut">توجه للاختبار النهائي واحصل على شهادتك الرقمية.</p></div>`}
+ <div class="stack" style="margin-top:14px">
+  <div class="card pad row sp">
+   <div><b>${ic('grad')} الاختبار النهائي للترم الأول</b>
+   <p class="small mut">15 سؤالًا شاملًا لجميع وحدات الكتاب • اجتياز بنسبة ${DB.settings.certPct}% أو أكثر = شهادة رقمية تلقائية</p>
+   ${unlocked?'':'<p class="small" style="color:#a67c08">🔒 يتطلب إكمال '+FINAL_UNLOCK+' اختبارات دروس — أنجزت '+doneLessons()+' حتى الآن</p>'}</div>
+   ${unlocked?`<button class="btn pri" onclick="startQuiz('final','final')">ابدأ الاختبار النهائي</button>`:`<button class="btn ghost" disabled>${ic('lock')} مقفل</button>`}
+  </div>
+  ${UNITS.map(u=>{
+   const ls=LESSONS.filter(L=>L.u===u.id);
+   return `<div class="unit" id="unit-${u.id}">
+   <button class="uhead" onclick="document.getElementById('unit-${u.id}').classList.toggle('open')">
+    <span class="uico">${u.icon}</span><span style="flex:1"><b>${u.t}</b><small>${u.d} • ${ls.length} دروس</small></span><span class="uarrow">▾</span>
+   </button>
+   <div class="ubody">${ls.map(L=>{
+    const s=ME.lessons[L.id]||{};
+    return `<div class="lrow"><span class="lic">${L.icon}</span>
+    <div class="lmeta"><b>درس ${LESSONS.indexOf(L)+1}: ${esc(L.title)}</b>
+     <div class="lstats">${statusChip(s.read,'شرح')}${statusChip(s.practice!=null,'تدريب')}${statusChip(s.exam!=null,'اختبار')}</div></div>
+    <div class="lbtns">
+     <button class="btn sm ghost" onclick="go('lesson','${L.id}')">الشرح</button>
+     <button class="btn sm ghost" onclick="startQuiz('practice','${L.id}')">التدريب</button>
+     <button class="btn sm pri" onclick="startQuiz('exam','${L.id}')">الاختبار</button>
+    </div></div>`}).join('')}</div></div>`}).join('')}
+ </div>
+ <div class="row" style="margin-top:16px;justify-content:center">
+  <button class="btn ghost sm" onclick="openBadges()">${ic('star')} إنجازاتي</button>
+  <button class="btn ghost sm" onclick="go('board')">${ic('trophy')} لوحة المتصدرين</button>
+  <button class="btn ghost sm" onclick="resetMe()">${ic('trash')} تصفير تقدمي</button>
+ </div></div>`;
+}
+function LIC(L){return `<span class="lic" style="display:inline-flex;width:30px;height:30px;font-size:15px">${L.icon}</span>`}
+function resetMe(){if(confirm('سيتم حذف تقدمك ونقاطك وشهاداتك نهائيًا. هل أنت متأكد؟')){
+ DB.students=DB.students.filter(s=>s.id!==ME.id);localStorage.removeItem(SESKEY);ME=null;saveDB();go('welcome');toast('تم تصفير تقدمك. بداية جديدة موفقة!')}}
+
+/* =============== صفحة الدرس =============== */
+function renderLesson(app,lid){
+ const L=LESSONS.find(x=>x.id===lid);if(!L){go('home');return}
+ const u=UNITS.find(x=>x.id===L.u);
+ const s=ME.lessons[lid]||{};
+ const seg=(v,lab)=>`<div class="sg ${v?'on':''}">${lab}</div>`;
+ app.innerHTML=`<div class="wrap fade" style="max-width:860px">
+ <div class="crumb">${u.t} <span>←</span> درس ${LESSONS.indexOf(L)+1}: ${esc(L.title)} <span>←</span> <b style="color:var(--blue)">الشرح</b></div>
+ <div class="card pad">
+  <div class="row sp"><div class="row"><span class="uico">${L.icon}</span><h2>${esc(L.title)}</h2></div>
+  <button class="btn ${s.read?'okb':'pri'}" onclick="markRead('${lid}')">${s.read?'✔ أكملت الشرح':'أكملت الشرح ✓'}</button></div>
+  <div class="seg">${seg(s.read,'١. الشرح')}${seg(s.practice!=null,'٢. التدريب')}${seg(s.exam!=null,'٣. الاختبار')}</div>
+ </div>
+ <div class="card sec"><h3><span class="sico">${ic('target')}</span> أهداف الدرس</h3>
+  <ul style="padding-inline-start:20px">${L.obj.map(o=>`<li style="margin-bottom:5px">${o}</li>`).join('')}</ul></div>
+ <div class="card sec"><h3><span class="sico">${ic('book')}</span> الشرح خطوة بخطوة</h3>
+  <div class="steps">${L.steps.map((st,i)=>`<div class="step"><span class="snum"></span><div style="flex:1"><div>${st.t}</div>${st.c?codeBlock(st.c,st.o):''}${st.e2?`<div class="warnbox">${st.e2}</div>`:''}</div></div>`).join('')}</div></div>
+ <div class="card sec pur"><h3><span class="sico">${ic('list')}</span> القوانين والقواعد</h3>
+  ${L.rules.map(r=>`<div class="rule">${ic('check')}<div>${r}</div></div>`).join('')}</div>
+ <div class="card sec"><h3><span class="sico">${ic('bulb')}</span> أمثلة محلولة</h3>
+  ${L.ex.map(e=>`<div class="exmp"><b>${e.t}</b>${codeBlock(e.c,e.o)}<p class="small mut" style="margin-top:6px">💡 ${e.e}</p></div>`).join('')}</div>
+ <div class="card sec"><h3><span class="sico" style="background:#fff8f0">${ic('warn')}</span> <span style="color:#d97706">أخطاء شائعة تجنبها</span></h3>
+  ${L.mis.map(m=>`<div class="mis">${ic('x')}<div>${m}</div></div>`).join('')}</div>
+ <div class="card sec pur"><h3><span class="sico">${ic('target')}</span> أسئلة سريعة — فكّر بنفسك أولًا!</h3>
+  ${L.quick.map((q,i)=>`<div class="qq"><div class="qq-q">س${i+1}: ${q.q}</div>
+   <button class="btn sm ghost" onclick="reveal(this)">إظهار الحل</button>
+   <div class="qq-a" hidden>✅ ${q.a}</div></div>`).join('')}</div>
+ <div class="row" style="justify-content:space-between;margin-bottom:30px">
+  <button class="btn ghost" onclick="go('home')">${ic('arrL')} الوحدات</button>
+  <button class="btn pri" onclick="startQuiz('practice','${lid}')">ابدأ التدريب ${ic('play')}</button>
+ </div></div>`;
+}
+function codeBlock(c,o){return `<div class="code">${esc(c)}</div>${o?`<div class="exout">&gt; ${esc(o).replace(/\n/g,'<br>')}</div>`:''}`}
+function reveal(btn){btn.nextElementSibling.hidden=false;btn.style.display='none'}
+function markRead(lid){
+ const L=ME.lessons[lid]||(ME.lessons[lid]={});
+ if(!L.read){L.read=true;addXP(10);saveDB();toast('أحسنت! أكملت الشرح +10 XP')}
+ render();
+}
+
+/* =============== محرك الاختبار =============== */
+let QZ=null,RES=null;
+function prepQ(q){
+ if(q.t==='mcq'||q.t==='fill'){
+  const m=q.opts.map((o,i)=>({o,i}));const sm=shuffle(m);
+  return {...q,disp:sm.map(x=>x.o),corrIdx:sm.findIndex(x=>x.i===q.a)};
+ }
+ return q;
+}
+function startQuiz(mode,lid){
+ let pool,n;
+ if(mode==='final'){pool=LESSONS.reduce((a,L)=>a.concat(getLessonQs(L.id)),[]).concat(getLessonQs('final'));n=15}
+ else{pool=getLessonQs(lid);n=mode==='practice'?6:10}
+ if(pool.length<n)n=pool.length;
+ if(!n){toast('لا توجد أسئلة متاحة لهذا الدرس');return}
+ QZ={mode,lid,list:shuffle(pool).slice(0,n).map(prepQ),i:0,correct:0,oks:[],start:Date.now(),checked:false,cur:null,
+  order:null,zones:null,free:null,sel:null,dragPos:null,dragChip:null};
+ if(mode!=='practice')QZ.tid=setInterval(()=>{const el=$('#qt');if(el)el.textContent=fmtTime((Date.now()-QZ.start)/1000|0)},1000);
+ go('quiz');
+}
+function exitQuiz(){
+ if(!confirm('هل تريد الخروج من الاختبار؟ لن يتم حفظ النتيجة.'))return;
+ if(QZ&&QZ.tid)clearInterval(QZ.tid);
+ QZ=null;go('home');
+}
+function renderQuiz(app){
+ if(!QZ){go('home');return}
+ const q=QZ.list[QZ.i];
+ const title=QZ.mode==='practice'?'تدريب الدرس':QZ.mode==='exam'?'اختبار الدرس':'الاختبار النهائي';
+ const L=LESSONS.find(x=>x.id===QZ.lid);
+ const dots=QZ.list.map((_,i)=>`<span class="${i<QZ.i?(QZ.oks[i]?'okd':'badd'):'on'}"></span>`).join('');
+ app.innerHTML=`<div class="wrap fade" style="max-width:760px">
+ <div class="crumb">${L?esc(L.title)+' ← ':''}<b style="color:var(--pur)">${title}</b></div>
+ <div class="card pad">
+  <div class="qhead"><span class="qtype">${TYPELAB[q.t]}</span>
+   <span class="chip blue small">سؤال ${QZ.i+1} من ${QZ.list.length}</span>
+   ${QZ.mode!=='practice'?`<span class="chip warn">${ic('clock')} <span id="qt">${fmtTime((Date.now()-QZ.start)/1000|0)}</span></span>`:''}
+   <button class="btn sm danger" style="margin-inline-start:auto" onclick="exitQuiz()">خروج</button></div>
+  <div class="qdots">${dots}</div>
+  ${q.t!=='fill'?`<div class="qq2">${esc(q.q)}</div>`:''}
+  ${q.c?`<div class="code">${esc(q.c)}</div>`:''}
+  <div id="qbody">${qBodyHTML(q)}</div>
+  <div id="qactions" class="row" style="margin-top:16px">
+   <button id="qsubmit" class="btn pri" disabled onclick="submitQ()">تحقق من الإجابة</button>
+  </div>
+ </div></div>`;
+ if(q.t==='order'){QZ.order=shuffle(q.opts.map((_,i)=>i));renderOrderList()}
+ if(q.t==='match'){const n=q.opts.length;QZ.zones=Array(n).fill(null);QZ.free=shuffle(q.opts.map((_,i)=>i));QZ.sel=null;renderMatch()}
+}
+function enableSubmit(){const b=$('#qsubmit');if(b)b.disabled=false}
+function qBodyHTML(q){
+ if(q.t==='mcq')return `<div class="opts lockable">${q.disp.map((o,i)=>`<button class="opt" id="opt${i}" onclick="pick(${i})">${esc(o)}</button>`).join('')}</div>`;
+ if(q.t==='fill')return `<div class="qq2" style="font-size:15.5px;font-weight:600">${esc(q.q).replace(/____/,`<span class="blank" id="blank">______</span>`)}</div><div class="chips lockable">${q.disp.map((o,i)=>`<button class="fchip" id="opt${i}" onclick="pick(${i})">${esc(o)}</button>`).join('')}</div>`;
+ if(q.t==='tf')return `<div class="tfgrid lockable"><button class="tfbtn" id="tf1" onclick="pickTF(true)">✔ صح</button><button class="tfbtn" id="tf0" onclick="pickTF(false)">✖ خطأ</button></div>`;
+ if(q.t==='input')return `<input id="qin" class="inp" placeholder="اكتب إجابتك هنا…" style="margin-top:8px" oninput="qinChanged()" onkeydown="if(event.key==='Enter')submitQ()" autocomplete="off">`;
+ if(q.t==='order')return `<p class="small mut">رتّب الخطوات من الأعلى إلى الأسفل (استخدم الأسهم أو السحب):</p><div id="olist"></div>`;
+ if(q.t==='match')return `<p class="small mut">اسحب كل بطاقة إلى مكانها الصحيح — أو اضغط البطاقة ثم المكان:</p><div id="matcharea"></div>`;
+ return '';
+}
+window.pick=function(i){
+ if(QZ.checked)return;QZ.cur=i;
+ document.querySelectorAll('.opt,.fchip').forEach(e=>e.classList.remove('sel'));
+ const el=$('#opt'+i);if(el)el.classList.add('sel');
+ const bl=$('#blank');if(bl)bl.textContent=QZ.list[QZ.i].disp[i];
+ enableSubmit();
+};
+window.pickTF=function(v){if(QZ.checked)return;QZ.cur=v;$('#tf1').classList.toggle('sel',v===true);$('#tf0').classList.toggle('sel',v===false);enableSubmit()};
+window.qinChanged=function(){QZ.cur=$('#qin').value;if(QZ.cur.trim())enableSubmit();else $('#qsubmit').disabled=true};
+function renderOrderList(){
+ const q=QZ.list[QZ.i];
+ $('#olist').innerHTML=QZ.order.map((oi,pos)=>`<div class="oitem" draggable="true" ondragstart="dstart(${pos})" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="ddrop(event,${pos})">
+  <span class="onum">${pos+1}</span><span style="flex:1">${esc(q.opts[oi])}</span>
+  <span class="obtns"><button title="أعلى" onclick="omove(${pos},-1)">▲</button><button title="أسفل" onclick="omove(${pos},1)">▼</button></span></div>`).join('');
+ enableSubmit();
+}
+window.omove=function(pos,d){const c=QZ.order,np=pos+d;if(np<0||np>=c.length)return;[c[pos],c[np]]=[c[np],c[pos]];renderOrderList()};
+window.dstart=function(pos){QZ.dragPos=pos;event.dataTransfer.setData('text/plain',pos)};
+window.ddrop=function(ev,pos){ev.preventDefault();const from=QZ.dragPos;if(from==null||from===pos)return;const c=QZ.order;const[m]=c.splice(from,1);c.splice(pos,0,m);QZ.dragPos=null;renderOrderList()};
+function renderMatch(){
+ const q=QZ.list[QZ.i];
+ const zones=q.opts.map((p,z)=>`<div class="mzone ${QZ.zones[z]!=null?(QZ.zones[z]===z?'ok':'bad'):''}" onclick="mzone(${z})">
+  <span class="zlab">${esc(p[1])}:</span>${QZ.zones[z]!=null?`<span class="mchip ${QZ.checked?(QZ.zones[z]===z?'ok':'bad'):''}" onclick="event.stopPropagation();mchip(${QZ.zones[z]})">${esc(q.opts[QZ.zones[z]][0])}</span>`:'<span class="small mut">أفلت البطاقة هنا</span>'}</div>`).join('');
+ const chips=QZ.free.map(ci=>`<span class="mchip ${QZ.sel===ci?'sel':''}" draggable="true" ondragstart="dstartChip(${ci})" onclick="mchip(${ci})">${esc(q.opts[ci][0])}</span>`).join('');
+ $('#matcharea').innerHTML=zones+(QZ.free.length?`<div class="row" style="margin-top:10px;min-height:44px;border:2px dashed var(--line);border-radius:12px;padding:8px" ondragover="event.preventDefault()" ondrop="returnChip(event)">${chips}</div>`:'');
+ enableSubmit();
+}
+window.dstartChip=function(ci){QZ.dragChip=ci;event.dataTransfer.setData('text/plain',ci)};
+window.returnChip=function(ev){ev.preventDefault();const ci=QZ.dragChip;if(ci==null)return;if(QZ.checked)return;QZ.zones=QZ.zones.map(z=>z===ci?null:z);if(!QZ.free.includes(ci))QZ.free.push(ci);QZ.dragChip=null;renderMatch()};
+window.mchip=function(ci){
+ if(QZ.checked)return;
+ const zi=QZ.zones.findIndex(z=>z===ci);
+ if(zi>-1){QZ.zones[zi]=null;QZ.free.push(ci);QZ.sel=null}
+ else QZ.sel=QZ.sel===ci?null:ci;
+ renderMatch();
+};
+window.mzone=function(z){
+ if(QZ.checked||QZ.sel==null)return;
+ QZ.zones[z]=QZ.sel;QZ.free=QZ.free.filter(x=>x!==QZ.sel);QZ.sel=null;renderMatch();
+};
+function correctText(q){
+ if(q.t==='mcq'||q.t==='fill')return q.disp[q.corrIdx];
+ if(q.t==='tf')return q.a?'صح':'خطأ';
+ if(q.t==='input')return q.a[0];
+ if(q.t==='order')return q.opts.join(' ثم ');
+ if(q.t==='match')return q.opts.map(p=>`${p[0]} = ${p[1]}`).join(' ، ');
+ return '';
+}
+window.submitQ=function(){
+ if(!QZ||QZ.checked)return;
+ const q=QZ.list[QZ.i];
+ if(q.t==='match'&&QZ.zones.some(z=>z===null)){toast('أكمل وضع جميع البطاقات أولًا');return}
+ if(q.t==='input'&&(!QZ.cur||!String(QZ.cur).trim())){toast('اكتب إجابتك أولًا');return}
+ if(['mcq','fill'].includes(q.t)&&QZ.cur==null)return;
+ if(q.t==='tf'&&QZ.cur==null)return;
+ let ok=false;
+ if(q.t==='mcq'||q.t==='fill')ok=QZ.cur===q.corrIdx;
+ else if(q.t==='tf')ok=QZ.cur===q.a;
+ else if(q.t==='input')ok=q.a.map(norm).includes(norm(QZ.cur));
+ else if(q.t==='order')ok=QZ.order.every((v,i)=>v===i);
+ else if(q.t==='match')ok=QZ.zones.every((v,z)=>v===z);
+ QZ.checked=true;QZ.oks.push(ok);recordStat(q.id,ok);if(ok)QZ.correct++;
+ document.querySelectorAll('.lockable').forEach(e=>e.classList.add('lock'));
+ if(q.t==='mcq'||q.t==='fill'){const c=$('#opt'+q.corrIdx);if(c)c.classList.add('ok');
+  if(!ok&&QZ.cur!=null){const b=$('#opt'+QZ.cur);if(b)b.classList.add('bad')}}
+ if(q.t==='tf'){$('#tf'+(q.a?1:0)).classList.add('ok');if(!ok)$('#tf'+(QZ.cur?1:0)).classList.add('bad')}
+ if(q.t==='input'&&!ok){const el=$('#qin');if(el){el.style.borderColor='var(--bad)';el.style.background='var(--badbg)'}}
+ if(q.t==='order'){renderOrderList();[...document.querySelectorAll('#olist .oitem')].forEach((el,i)=>el.classList.add(QZ.order[i]===i?'ok':'bad'))}
+ if(q.t==='match')renderMatch();
+ $('#qsubmit').style.display='none';
+ const fb=document.createElement('div');
+ fb.className='fb '+(ok?'ok':'bad');
+ fb.innerHTML=`<b class="t1">${ok?'✔ أحسنت! إجابة صحيحة':'✖ إجابة غير صحيحة'}</b>
+ ${ok?'':`<div class="corr">الإجابة الصحيحة: <b>${esc(correctText(q))}</b></div>`}
+ <div>${esc(q.x)}</div><div class="fbxp">${ok?(QZ.mode==='practice'?'+4 XP':QZ.mode==='exam'?'+2 XP':'+5 XP'):'راجع الشرح وستنجح في المرة القادمة!'}</div>`;
+ $('#qbody').after(fb);
+ const last=QZ.i===QZ.list.length-1;
+ $('#qactions').innerHTML=`<button class="btn pri" onclick="nextQ()">${last?'إنهاء وعرض النتيجة':'السؤال التالي'} ${ic('arrL')}</button>`;
+};
+window.nextQ=function(){
+ QZ.i++;QZ.checked=false;QZ.cur=null;QZ.sel=null;QZ.dragPos=null;QZ.dragChip=null;
+ if(QZ.i>=QZ.list.length)finishQuiz();else render();
+};
+function finishQuiz(){
+ clearInterval(QZ.tid);
+ const total=QZ.list.length,pct=Math.round(QZ.correct/total*100);
+ const time=(Date.now()-QZ.start)/1000|0;
+ const skills=[...new Set(QZ.list.filter((_,i)=>!QZ.oks[i]).map(q=>q.s))];
+ let gained=0,cert=null;
+ const L=ME.lessons[QZ.lid]||(ME.lessons[QZ.lid]={});
+ if(QZ.mode==='practice'){gained=QZ.correct*4;L.practice=Math.max(L.practice||0,pct)}
+ else if(QZ.mode==='exam'){gained=QZ.correct*2+(pct>=DB.settings.certPct?20:0);L.exam=Math.max(L.exam||0,pct);L.attempts=(L.attempts||0)+1;ME.exams.push({lid:QZ.lid,mode:QZ.mode,pct,correct:QZ.correct,total,time,skills,date:Date.now()})}
+ else{gained=QZ.correct*5+(pct>=DB.settings.certPct?50:0);L.exam=Math.max(L.exam||0,pct);L.attempts=(L.attempts||0)+1;ME.exams.push({lid:QZ.lid,mode:QZ.mode,pct,correct:QZ.correct,total,time,skills,date:Date.now()});
+  if(pct>=DB.settings.certPct){
+   cert={no:'QUR-L1-'+Math.random().toString(36).slice(2,7).toUpperCase()+Date.now().toString(36).slice(-3).toUpperCase(),name:ME.name,pct,level:levelOf(ME.xp+gained).n,date:Date.now()};
+   ME.certs.push(cert);
+  }
+ }
+ const prevLevel=levelOf(ME.xp).n;
+ ME.xp+=gained;const newLevel=levelOf(ME.xp);
+ if(newLevel.n!==prevLevel)setTimeout(()=>toast(`🎊 مبروك! ترقية إلى مستوى «${newLevel.n}» ${newLevel.i}`),600);
+ checkBadges();saveDB();
+ RES={mode:QZ.mode,lid:QZ.lid,total,correct:QZ.correct,pct,time,skills,xp:gained,cert};
+ QZ=null;renderTopbar();go('results');
+ if(cert)setTimeout(()=>toast('🎓 مبروك! تم إصدار شهادتك الرقمية تلقائيًا'),800);
+}
+
+/* =============== النتائج =============== */
+function renderResults(app){
+ if(!RES){go('home');return}
+ const C=2*Math.PI*52,off=C*(1-RES.pct/100);
+ const msg=RES.pct>=90?'مذهل! أنت تفهم الكود بعمق 🌟':RES.pct>=70?'أحسنت! أنت على الطريق الصحيح':RES.pct>=50?'جيد — راجع المهارات المطلوبة وستتقدم':'لا بأس! الأخطاء جزء طبيعي من التعلم — أعد المحاولة';
+ const L=LESSONS.find(x=>x.id===RES.lid);
+ app.innerHTML=`<div class="wrap fade" style="max-width:700px">
+ <div class="card pad center">
+  <h2>${RES.mode==='practice'?'نتيجة التدريب':RES.mode==='exam'?'نتيجة اختبار الدرس':'نتيجة الاختبار النهائي'}</h2>
+  <p class="small mut">${L?esc(L.title):'شامل لجميع الوحدات'}</p>
+  <div class="ring" style="margin:16px auto">
+   <svg width="130" height="130" viewBox="0 0 120 120">
+    <defs><linearGradient id="rg"><stop offset="0%" stop-color="#2f6bed"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient></defs>
+    <circle cx="60" cy="60" r="52" stroke="#e8ecf8" stroke-width="11" fill="none"/>
+    <circle cx="60" cy="60" r="52" stroke="url(#rg)" stroke-width="11" fill="none" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/>
+   </svg><div class="rv">${RES.pct}%<small>الدرجة</small></div>
+  </div>
+  <div class="motiv">${msg}</div>
+  <div class="grid4" style="margin-top:14px;text-align:center">
+   <div class="stat"><b>${fmtTime(RES.time)}</b><small>الوقت</small></div>
+   <div class="stat"><b style="color:var(--ok)">${RES.correct}</b><small>إجابات صحيحة</small></div>
+   <div class="stat"><b style="color:var(--bad)">${RES.total-RES.correct}</b><small>إجابات خاطئة</small></div>
+   <div class="stat"><b style="color:var(--pur)">+${RES.xp}</b><small>نقاط XP</small></div>
+  </div>
+  ${RES.skills.length?`<div style="margin-top:16px"><b style="font-family:Cairo">🎯 مهارات تحتاج مراجعة:</b>
+   <div class="row" style="margin-top:8px;justify-content:center">${RES.skills.map(s=>`<span class="skillchip">${esc(s)}</span>`).join('')}</div></div>`:
+  '<p style="margin-top:14px;color:var(--ok);font-weight:800">✅ لا توجد مهارات تحتاج مراجعة — أداء ممتاز!</p>'}
+  <div class="row" style="margin-top:18px;justify-content:center">
+   <button class="btn pri" onclick="startQuiz('${RES.mode}','${RES.lid}')">${ic('play')} إعادة الاختبار (أسئلة مختلفة)</button>
+   ${RES.mode==='practice'?`<button class="btn ghost" onclick="startQuiz('exam','${RES.lid}')">انتقل للاختبار</button>`:''}
+   ${RES.cert?`<button class="btn ghost" onclick="go('certs')">${ic('award')} عرض شهادتي</button>`:''}
+   <button class="btn ghost" onclick="go('home')">الرئيسية</button>
+  </div>
+  ${RES.cert?`<div style="margin-top:20px">${certHTML(RES.cert)}
+   <div class="row" style="justify-content:center;margin-top:12px">
+    <button class="btn pri" onclick="printCert()">${ic('download')} تحميل PDF</button>
+    <button class="btn ghost" onclick="shareCert()">${ic('share')} مشاركة</button></div></div>`:''}
+ </div></div>`;
+}
+
+/* =============== لوحة المتصدرين =============== */
+function renderBoard(app){
+ const real=DB.students.map(s=>({name:s.name,xp:s.xp,avg:avgOf(s),done:doneOf(s),me:s.id===ME.id,demo:false}));
+ const demo=DB.demo.map(d=>({name:d.name,xp:d.xp,avg:d.avg,done:d.done,me:false,demo:true}));
+ const rows=real.concat(demo).sort((a,b)=>b.xp-a.xp||b.avg-a.avg);
+ const medals=['🥇','🥈','🥉'];
+ app.innerHTML=`<div class="wrap fade" style="max-width:820px">
+ <div class="card pad">
+  <h2 class="center">${ic('trophy')} لوحة المتصدرين</h2>
+  <p class="small mut center">مرتبة حسب النقاط ثم متوسط الدرجات ثم الدروس المكتملة</p>
+  <div class="tscroll"><table class="tb" style="margin-top:12px">
+   <thead><tr><th>#</th><th>الطالب</th><th>المستوى</th><th>النقاط</th><th>متوسط الدرجات</th><th>دروس مكتملة</th></tr></thead>
+   <tbody>${rows.map((r,i)=>`<tr class="${r.me?'me':''}">
+    <td class="rank">${i<3?`<span class="medal">${medals[i]}</span>`:i+1}</td>
+    <td><b>${esc(r.name)}</b>${r.me?' <span class="chip blue small" style="padding:1px 10px">أنت</span>':''}${r.demo?' <small class="mut">(طالب)</small>':''}</td>
+    <td>${levelOf(r.xp).i} ${levelOf(r.xp).n}</td>
+    <td><b style="color:var(--pur)">${r.xp}</b> XP</td>
+    <td>${r.avg?r.avg+'%':'—'}</td>
+    <td>${r.done}</td></tr>`).join('')}</tbody></table></div>
+  <p class="small mut" style="margin-top:10px">💡 اكسب نقاطًا من الشروح والتدريبات والاختبارات لتتسلق اللوحة!</p>
+ </div></div>`;
+}
+function avgOf(s){return s.exams&&s.exams.length?Math.round(s.exams.reduce((a,e)=>a+e.pct,0)/s.exams.length):0}
+function doneOf(s){return s.lessons?Object.values(s.lessons).filter(l=>l.exam!=null).length:0}
+
+/* =============== الشهادات =============== */
+function certHTML(c){
+ return `<div class="cert"><div class="cert-in">
+  <div class="cert-top"><span class="cert-logo">QUR</span><span class="cert-plat">منصة تعلم • لغز • أنشئ</span></div>
+  <h2>شهادة إتمام</h2>
+  <p class="cert-sub">تُشهد منصة QUR بأن الطالب</p>
+  <div class="cert-name">${esc(c.name)}</div>
+  <p>قد اجتاز بنجاح الاختبار النهائي لمقرر<br><b>«البرمجة والذكاء الاصطناعي» — الترم الأول | المستوى الأول</b></p>
+  <div class="cert-row"><span>الدرجة: <b>${c.pct}%</b></span><span>المستوى: <b>${esc(c.level)}</b></span></div>
+  <div class="cert-row"><span>تاريخ الإصدار: <b>${fmtDate(c.date)}</b></span><span>رقم الشهادة: <b dir="ltr">${esc(c.no)}</b></span></div>
+  <div class="cert-foot">
+   <div><b>محمد البربري</b><small>معلم البرمجة والذكاء الاصطناعي</small></div>
+   <div class="cert-seal">✔</div>
+   <div><b dir="ltr">01064202312</b><small>للتواصل والاستفسار</small></div>
+  </div></div></div>`;
+}
+function renderCerts(app){
+ const has=ME.certs.length>0;
+ const unlocked=doneLessons()>=FINAL_UNLOCK;
+ app.innerHTML=`<div class="wrap fade" style="max-width:900px">
+ <h2 class="center" style="margin-bottom:14px">${ic('award')} شهاداتي الرقمية</h2>
+ ${has?ME.certs.map((c,i)=>`<div class="card pad" style="margin-bottom:16px">
+  ${certHTML(c)}
+  <div class="row" style="justify-content:center;margin-top:14px">
+   <button class="btn pri" onclick="printCert(${i})">${ic('download')} تحميل PDF</button>
+   <button class="btn ghost" onclick="shareCert(${i})">${ic('share')} مشاركة</button>
+  </div></div>`).join(''):
+ `<div class="card pad center">
+  <div style="font-size:52px">🎓</div>
+  <h3>لم تصدر شهادة لك بعد</h3>
+  <p class="small mut" style="max-width:520px;margin:8px auto">اجتز <b>الاختبار النهائي</b> بنسبة <b>${DB.settings.certPct}%</b> أو أكثر لتصدر شهادتك تلقائيًا باسمك ودرجتك ومستواك وتاريخ الإصدار ورقمها.
+  ${unlocked?'':'<br>🔒 يتطلب إكمال '+FINAL_UNLOCK+' اختبارات دروس لفتح الاختبار النهائي (أنجزت '+doneLessons()+').'}</p>
+  <button class="btn pri" ${unlocked?'':'disabled'} onclick="startQuiz('final','final')">ابدأ الاختبار النهائي</button>
+ </div>`}
+ <div class="row" style="justify-content:center;margin-top:8px"><button class="btn ghost" onclick="go('home')">الرئيسية</button></div></div>`;
+}
+window.printCert=function(i){
+ const c=typeof i==='number'?ME.certs[i]:RES.cert;
+ $('#certPrint').innerHTML=certHTML(c);window.print();
+};
+window.shareCert=async function(i){
+ const c=typeof i==='number'?ME.certs[i]:RES.cert;
+ const txt=`🎓 حصلت على شهادة إتمام مقرر «البرمجة والذكاء الاصطناعي» من منصة QUR\nالطالب: ${c.name}\nالدرجة: ${c.pct}%\nالمستوى: ${c.level}\nرقم الشهادة: ${c.no}\nمعلم المقرر: محمد البربري — 01064202312`;
+ try{if(navigator.share){await navigator.share({title:'شهادتي من منصة QUR',text:txt})}else{await navigator.clipboard.writeText(txt);toast('تم نسخ بيانات الشهادة — يمكنك مشاركتها الآن')}}catch(e){}
+};
+
+/* =============== لوحة المعلم =============== */
+function renderAdmin(app){
+ if(!adminOK){
+  app.innerHTML=`<div class="wrap fade" style="max-width:460px"><div class="card pad center">
+   <div style="font-size:44px">🔐</div><h2>لوحة المعلم</h2>
+   <p class="small mut">هذه المنطقة مخصصة للمعلم. أدخل رمز الدخول للمتابعة.</p>
+   <input id="pin" type="password" class="inp center" placeholder="رمز الدخول" style="margin:12px 0" onkeydown="if(event.key==='Enter')tryPin()">
+   <button class="btn pri block" onclick="tryPin()">دخول</button>
+   <p class="small mut" style="margin-top:10px">الرمز الافتراضي: <b dir="ltr">1234</b> (يمكن تغييره من الإعدادات)</p>
+   <button class="btn ghost sm" style="margin-top:8px" onclick="go('home')">رجوع</button>
+  </div></div>`;return;
+ }
+ const tab=VIEW.tab||'students';
+ const tabs=[['students','الطلاب'],['results','النتائج'],['wrong','الأسئلة الأكثر خطأً'],['questions','إدارة الأسئلة'],['settings','الإعدادات والتصدير']];
+ app.innerHTML=`<div class="wrap fade" style="max-width:1050px">
+ <div class="card pad">
+  <div class="row sp"><h2>${ic('shield')} لوحة المعلم — محمد البربري</h2><button class="btn ghost sm" onclick="go('home')">رجوع للتطبيق</button></div>
+  <div class="tabs" style="margin-top:12px">${tabs.map(t=>`<button class="tab ${tab===t[0]?'on':''}" onclick="go('admin',{tab:'${t[0]}'})">${t[1]}</button>`).join('')}</div>
+  <div>${tab==='students'?adminStudents():tab==='results'?adminResults():tab==='wrong'?adminWrong():tab==='questions'?adminQuestions():adminSettings()}</div>
+ </div></div>`;
+}
+window.tryPin=function(){const v=$('#pin').value.trim();if(v===DB.settings.pin){adminOK=true;go('admin',{tab:'students'});toast('مرحبًا بك يا أستاذ محمد البربري')}else toast('رمز دخول غير صحيح')};
+function adminStudents(){
+ const rows=DB.students.map(s=>`<tr><td><b>${esc(s.name)}</b></td><td>${s.xp}</td><td>${levelOf(s.xp).n}</td><td>${doneOf(s)}/${LESSONS.length}</td><td>${s.exams.length}</td><td>${avgOf(s)?avgOf(s)+'%':'—'}</td><td>${s.exams.length?fmtDate(s.exams[s.exams.length-1].date):'—'}</td>
+ <td><button class="btn sm danger" onclick="delStudent('${s.id}')">${ic('trash')}</button></td></tr>`).join('');
+ return `<p class="small mut">إجمالي الطلاب المسجلين: <b>${DB.students.length}</b> (بالإضافة إلى طلاب لوحة المتصدرين التجريبيين)</p>
+ <div class="tscroll"><table class="tb"><thead><tr><th>الاسم</th><th>النقاط</th><th>المستوى</th><th>الدروس</th><th>الاختبارات</th><th>المتوسط</th><th>آخر نشاط</th><th></th></tr></thead><tbody>${rows||'<tr><td colspan="8" class="center mut">لا يوجد طلاب بعد</td></tr>'}</tbody></table></div>`;
+}
+window.delStudent=function(id){if(!confirm('حذف هذا الطالب وكل بياناته؟'))return;DB.students=DB.students.filter(s=>s.id!==id);if(ME&&ME.id===id){localStorage.removeItem(SESKEY);ME=null;saveDB();go('welcome')}else{saveDB();go('admin',{tab:'students'})}};
+function adminResults(){
+ const all=[];DB.students.forEach(s=>s.exams.forEach(e=>all.push({s,e})));
+ all.sort((a,b)=>b.e.date-a.e.date);
+ const rows=all.map(({s,e})=>`<tr><td>${esc(s.name)}</td><td>${e.mode==='final'?'<b>الاختبار النهائي</b>':esc((LESSONS.find(L=>L.id===e.lid)||{}).title||'—')}</td><td><b style="color:${e.pct>=DB.settings.certPct?'var(--ok)':'var(--bad)'}">${e.pct}%</b></td><td>${e.correct}/${e.total}</td><td>${fmtTime(e.time)}</td><td>${fmtDate(e.date)}</td></tr>`).join('');
+ return `<div class="tscroll"><table class="tb"><thead><tr><th>الطالب</th><th>الاختبار</th><th>الدرجة</th><th>صحيح/الكل</th><th>الزمن</th><th>التاريخ</th></tr></thead><tbody>${rows||'<tr><td colspan="6" class="center mut">لا توجد نتائج بعد</td></tr>'}</tbody></table></div>`;
+}
+function adminWrong(){
+ const agg={};DB.students.forEach(s=>{Object.entries(s.stats||{}).forEach(([qid,st])=>{agg[qid]=agg[qid]||{w:0,r:0};agg[qid].w+=st.w;agg[qid].r+=st.r})});
+ const list=Object.entries(agg).map(([qid,v])=>{const q=findQ(qid);return q?{...v,q}:null}).filter(Boolean).sort((a,b)=>b.w-a.w).slice(0,12);
+ return list.length?`<div class="tscroll"><table class="tb"><thead><tr><th>#</th><th>السؤال</th><th>الدرس</th><th>مرات الخطأ</th><th>مرات الصواب</th></tr></thead><tbody>
+ ${list.map((x,i)=>`<tr><td class="rank">${i+1}</td><td>${esc(x.q.q)}</td><td>${esc(lessonTitle(lessonOfQ(x.q.id)))}</td><td><b style="color:var(--bad)">${x.w}</b></td><td style="color:var(--ok)">${x.r}</td></tr>`).join('')}</tbody></table></div>`:
+ '<p class="center mut" style="padding:20px">لا توجد بيانات أخطاء بعد — ستظهر هنا تلقائيًا مع استخدام الطلاب للتطبيق.</p>';
+}
+function lessonOfQ(qid){for(const L of LESSONS){if((QUESTIONS[L.id]||[]).some(q=>q.id===qid))return L.id;if(DB.custom.some(q=>q.id===qid&&q.lid===L.id))return L.id}return 'final'}
+function lessonTitle(lid){return lid==='final'?'الاختبار النهائي':(LESSONS.find(L=>L.id===lid)||{}).title||lid}
+function adminQuestions(){
+ let html=`<div class="row sp" style="margin-bottom:10px"><b>أسئلة المقرر (يمكن تعديلها أو حذفها أو الإضافة):</b>
+ <button class="btn sm pri" onclick="adminAddQ()">${ic('plus')} إضافة سؤال</button></div>`;
+ LESSONS.forEach(L=>{
+  const qs=getLessonQs(L.id);
+  html+=`<div class="unit open"><button class="uhead" onclick="this.parentElement.classList.toggle('open')"><span class="uico">${L.icon}</span><span style="flex:1"><b>${esc(L.title)}</b><small>${qs.length} سؤالًا</small></span><span class="uarrow">▾</span></button>
+  <div class="ubody">${qs.map(q=>`<div class="qrow"><span class="ttype tt-${q.t}">${TYPELAB[q.t]}</span><span class="qt">${esc(q.q)}</span>
+   <button class="btn sm ghost" onclick="adminEditQ('${q.id}')">${ic('edit')}</button>
+   <button class="btn sm danger" onclick="adminDelQ('${q.id}')">${ic('trash')}</button></div>`).join('')}</div></div>`;
+ });
+ const fq=getLessonQs('final');
+ html+=`<div class="unit open"><button class="uhead"><span class="uico">🎓</span><span style="flex:1"><b>أسئلة الاختبار النهائي الإضافية</b><small>${fq.length} سؤالًا</small></span></button>
+ <div class="ubody">${fq.map(q=>`<div class="qrow"><span class="ttype tt-${q.t}">${TYPELAB[q.t]}</span><span class="qt">${esc(q.q)}</span>
+  <button class="btn sm ghost" onclick="adminEditQ('${q.id}')">${ic('edit')}</button>
+  <button class="btn sm danger" onclick="adminDelQ('${q.id}')">${ic('trash')}</button></div>`).join('')}</div></div>`;
+ return html;
+}
+function qForm(q,lid){
+ const isAdd=!q;
+ const t=q?q.t:'mcq';
+ let fields='';
+ if(t==='mcq'||t==='fill'){
+  fields=`<label>الخيارات (4):</label>${[0,1,2,3].map(i=>`<div class="row" style="margin-bottom:6px"><input type="radio" name="fa" value="${i}" ${q&&q.a===i?'checked':''} title="الإجابة الصحيحة"><input id="fo${i}" class="inp" placeholder="خيار ${i+1}" value="${q&&q.opts&&q.opts[i]?esc(q.opts[i]):''}"></div>`).join('')}`;
+ }else if(t==='tf'){
+  fields=`<label>الإجابة الصحيحة:</label><select id="fa" class="inp"><option value="true" ${q&&q.a===true?'selected':''}>صح</option><option value="false" ${q&&q.a===false?'selected':''}>خطأ</option></select>`;
+ }else if(t==='input'){
+  fields=`<label>الإجابات المقبولة (افصل بينها بفاصلة ,):</label><input id="fa" class="inp" value="${q?esc((q.a||[]).join(', ')):''}">`;
+ }else if(t==='order'){
+  fields=`<label>الخطوات بالترتيب الصحيح (كل خطوة في سطر):</label><textarea id="fa" class="inp">${q?esc((q.opts||[]).join('\n')):''}</textarea>`;
+ }else if(t==='match'){
+  fields=`<label>الأزواج (بطاقة=مكان، كل زوج في سطر):</label><textarea id="fa" class="inp">${q?esc((q.opts||[]).map(p=>p[0]+'='+p[1]).join('\n')):''}</textarea>`;
+ }
+ openModal(`<h3>${isAdd?'إضافة سؤال جديد':'تعديل السؤال'}</h3>
+ ${isAdd?`<div class="setrow"><div><label>الدرس:</label><select id="flid" class="inp" style="width:220px">${LESSONS.map(L=>`<option value="${L.id}" ${lid===L.id?'selected':''}>${esc(L.title)}</option>`).join('')}<option value="final" ${lid==='final'?'selected':''}>الاختبار النهائي</option></select></div>
+ <div><label>النوع:</label><select id="ft" class="inp" style="width:160px" onchange="adminAddQ($('#flid').value,this.value)">${Object.entries(TYPELAB).map(([k,v])=>`<option value="${k}" ${t===k?'selected':''}>${v}</option>`).join('')}</select></div></div>`:''}
+ <label>نص السؤال:</label><textarea id="fq" class="inp">${q?esc(q.q):''}</textarea>
+ <label>كود مرفق (اختياري):</label><input id="fc" class="inp" dir="ltr" value="${q&&q.c?esc(q.c):''}">
+ ${fields}
+ <label>الشرح المختصر للإجابة:</label><textarea id="fx" class="inp">${q?esc(q.x):''}</textarea>
+ <label>المهارة:</label><input id="fs" class="inp" value="${q?esc(q.s):''}">
+ <div class="row" style="margin-top:14px;justify-content:flex-end">
+  <button class="btn ghost" onclick="closeModal()">إلغاء</button>
+  <button class="btn pri" onclick="adminSaveQ('${q?q.id:''}',${isAdd?'true':'false'})">حفظ</button></div>`);
+}
+window.adminAddQ=function(lid,t){qForm({t:t||'mcq',opts:[],a:0,x:'',s:'',q:''},lid||'l1')};
+window.adminEditQ=function(qid){const q=findQ(qid);if(!q){toast('السؤال غير موجود');return}qForm(q)};
+window.adminSaveQ=function(qid,isAdd){
+ const g=id=>{const e=$(id);return e?e.value:''};
+ const upd={q:g('#fq').trim(),c:g('#fc').trim()||undefined,x:g('#fx').trim(),s:g('#fs').trim()||'عام'};
+ if(!upd.q){toast('اكتب نص السؤال');return}
+ const t=isAdd?$('#ft').value:(findQ(qid)||{}).t||'mcq';
+ if(t==='mcq'||t==='fill'){
+  upd.opts=[0,1,2,3].map(i=>g('#fo'+i).trim()).filter(Boolean);
+  const fa=document.querySelector('input[name="fa"]:checked');
+  upd.a=fa?parseInt(fa.value):0;
+  if(upd.opts.length<2){toast('أدخل خيارين على الأقل');return}
+ }else if(t==='tf'){upd.a=g('#fa')==='true'}
+ else if(t==='input'){upd.a=g('#fa').split(',').map(x=>x.trim()).filter(Boolean)}
+ else if(t==='order'){upd.opts=g('#fa').split('\n').map(x=>x.trim()).filter(Boolean);upd.a=null}
+ else if(t==='match'){upd.opts=g('#fa').split('\n').map(l=>l.trim().split('=').map(x=>x.trim())).filter(p=>p.length===2&&p[0]&&p[1]);upd.a=null}
+ if(isAdd){
+  DB.custom.push({id:'c'+Date.now().toString(36)+Math.random().toString(36).slice(2,4),lid:$('#flid').value,t,...upd});
+  toast('تمت إضافة السؤال بنجاح');
+ }else{
+  if(qid.startsWith('c')){const c=DB.custom.find(x=>x.id===qid);if(c)Object.assign(c,upd)}
+  else DB.edited[qid]=upd;
+  toast('تم حفظ التعديل');
+ }
+ saveDB();closeModal();go('admin',{tab:'questions'});
+};
+window.adminDelQ=function(qid){
+ if(!confirm('حذف هذا السؤال نهائيًا؟'))return;
+ const i=DB.custom.findIndex(x=>x.id===qid);
+ if(i>-1)DB.custom.splice(i,1);else DB.deleted.push(qid);
+ saveDB();go('admin',{tab:'questions'});toast('تم حذف السؤال');
+};
+function adminSettings(){
+ return `<div class="setrow"><div><label>نسبة اجتياز الاختبار النهائي للحصول على الشهادة (%):</label><input id="certPct" type="number" min="50" max="95" class="inp" value="${DB.settings.certPct}"></div>
+ <div><label>رمز دخول لوحة المعلم:</label><input id="npin" class="inp" dir="ltr" value="${esc(DB.settings.pin)}"></div>
+ <button class="btn pri" onclick="saveSettings()">حفظ الإعدادات</button></div>
+ <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+ <b style="font-family:Cairo">تصدير البيانات:</b>
+ <div class="row" style="margin-top:10px">
+  <button class="btn ghost" onclick="exportExcel()">${ic('download')} تصدير Excel (كل البيانات)</button>
+  <button class="btn ghost" onclick="exportCSV('students')">${ic('download')} CSV الطلاب</button>
+  <button class="btn ghost" onclick="exportCSV('results')">${ic('download')} CSV النتائج</button>
+ </div>
+ <p class="small mut" style="margin-top:8px">تُحفظ كل البيانات بشكل دائم في قاعدة البيانات المحلية للمتصفح (طبقة تخزين منظمة وآمنة داخل التطبيق).</p>`;
+}
+window.saveSettings=function(){
+ const p=parseInt($('#certPct').value);if(p>=50&&p<=95)DB.settings.certPct=p;
+ const pin=$('#npin').value.trim();if(pin.length>=4)DB.settings.pin=pin;
+ saveDB();toast('تم حفظ الإعدادات');go('admin',{tab:'settings'});
+};
+function dl(name,content,mime){const b=new Blob(['\ufeff'+content],{type:mime+';charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click()}
+function studentsCSV(){return 'الاسم,النقاط,المستوى,الدروس المكتملة,عدد الاختبارات,متوسط الدرجات\n'+DB.students.map(s=>`${s.name},${s.xp},${levelOf(s.xp).n},${doneOf(s)},${s.exams.length},${avgOf(s)}%`).join('\n')}
+function resultsCSV(){let r='الطالب,الاختبار,الدرجة,الصحيح,الإجمالي,الزمن,التاريخ\n';DB.students.forEach(s=>s.exams.forEach(e=>{r+=`${s.name},${e.mode==='final'?'الاختبار النهائي':lessonTitle(e.lid)},${e.pct}%,${e.correct},${e.total},${fmtTime(e.time)},${new Date(e.date).toLocaleString('ar-EG')}\n`}));return r}
+window.exportCSV=function(w){dl(w==='students'?'qur-students.csv':'qur-results.csv',w==='students'?studentsCSV():resultsCSV(),'text/csv');toast('تم تصدير الملف CSV')};
+window.exportExcel=function(){
+ const t1=studentsCSV().replace(/,/g,'</td><td>'),t2=resultsCSV().replace(/,/g,'</td><td>');
+ const html=`<html><head><meta charset="utf-8"></head><body dir="rtl"><h3>الطلاب</h3><table border="1"><tr><td>${t1.split('\n').slice(1).join('</td></tr><tr><td>')}</table><h3>النتائج</h3><table border="1"><tr><td>${t2.split('\n').slice(1).join('</td></tr><tr><td>')}</table></body></html>`;
+ dl('qur-report.xls',html,'application/vnd.ms-excel');toast('تم تصدير ملف Excel');
+};
+
+/* =============== التشغيل =============== */
+loadDB();
+const sesId=localStorage.getItem(SESKEY);
+ME=sesId?DB.students.find(s=>s.id===sesId):null;
+render();
+</script>
+</body>
+</html>
